@@ -69,24 +69,6 @@ function Menu() {
 
 
 
-  const [activeSection, setActiveSection] = useState('menu')
-  const [isDarkMode, setIsDarkMode] = useState(false)
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const navigate = useNavigate()
-
-  const handleNavigation = (sectionId) => {
-    if (sectionId === 'hero') {
-      navigate('/')
-    } else {
-      navigate(`/${sectionId}`)
-    }
-    setIsMenuOpen(false)
-  }
-
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode)
-    document.documentElement.classList.toggle('dark')
-  }
 
   return (
     <div className={`min-h-screen ${isDarkMode ? 'dark' : ''}`}>
