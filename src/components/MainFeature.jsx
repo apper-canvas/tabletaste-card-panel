@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react'
 
-import React from 'react'
-
 import { motion, AnimatePresence } from 'framer-motion'
 import { toast } from 'react-toastify'
 import ApperIcon from './ApperIcon'
