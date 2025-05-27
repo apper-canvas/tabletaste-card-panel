@@ -217,6 +217,5 @@ function Reviews() {
       </footer>
     </div>
 
-}
 
 export default Reviews
