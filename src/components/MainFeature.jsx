@@ -185,6 +185,10 @@ function MainFeature() {
 
   const tabs = [
     { id: 'menu', label: 'Menu', icon: 'UtensilsCrossed' },
+    { id: 'reservations', label: 'Reservations', icon: 'Calendar' },
+    { id: 'reviews', label: 'Reviews', icon: 'Star' }
+  ]
+
   useEffect(() => {
     // Simulate different availability based on selected date
     if (selectedDate) {
@@ -201,9 +205,6 @@ function MainFeature() {
     }
   }, [selectedDate])
 
-    { id: 'reservations', label: 'Reservations', icon: 'Calendar' },
-    { id: 'reviews', label: 'Reviews', icon: 'Star' }
-  ]
 
   const handleReservationSubmit = (e) => {
     e.preventDefault()
