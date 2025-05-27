@@ -223,24 +223,6 @@ function Home() {
               {restaurantInfo.description}
             </motion.p>
 
-            <motion.div 
-              className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
-            >
-              
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => navigate('/reservations')}
-
-                className="group glass text-white px-8 py-4 rounded-2xl font-semibold text-lg border border-white/30 hover:bg-white/30 transition-all duration-300 flex items-center space-x-3"
-              >
-                <span>Book Table</span>
-                <ApperIcon name="UtensilsCrossed" className="w-5 h-5 group-hover:animate-bounce" />
-              </motion.button>
-            </motion.div>
           </motion.div>
         </div>
 
