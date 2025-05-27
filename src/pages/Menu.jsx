@@ -13,7 +13,64 @@ const navItems = [
   { id: 'contact', label: 'Contact', icon: 'MapPin' }
 ]
 
+
+function CartButton({ cartItems = [] }) {
+  const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0)
+  
+  const handleCartClick = () => {
+    toast.info('Cart functionality - showing cart with ' + itemCount + ' items')
+    // Future: Open cart modal or navigate to cart page
+  }
+  
+  if (itemCount === 0) return null
+  
+  return (
+    <motion.button
+      whileTap={{ scale: 0.95 }}
+      onClick={handleCartClick}
+      className="relative p-2 rounded-xl bg-surface-100 dark:bg-surface-800 text-surface-700 dark:text-surface-300 hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors"
+    >
+      <ApperIcon name="ShoppingCart" className="w-5 h-5" />
+      {itemCount > 0 && (
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          className="absolute -top-1 -right-1 bg-primary text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center min-w-[20px]"
+        >
+          {itemCount > 99 ? '99+' : itemCount}
+        </motion.div>
+      )}
+    </motion.button>
+  )
+}
+
+
 function Menu() {
+  const [cart, setCart] = useState(() => {
+    const saved = localStorage.getItem('tabletaste-cart')
+    return saved ? JSON.parse(saved) : []
+  })
+
+  // Listen for cart updates from localStorage
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const saved = localStorage.getItem('tabletaste-cart')
+      setCart(saved ? JSON.parse(saved) : [])
+    }
+    
+    // Listen for storage changes
+    window.addEventListener('storage', handleStorageChange)
+    
+    // Poll for changes every 1000ms as fallback
+    const interval = setInterval(handleStorageChange, 1000)
+    
+    return () => {
+      window.removeEventListener('storage', handleStorageChange)
+      clearInterval(interval)
+    }
+  }, [])
+
+
   const [activeSection, setActiveSection] = useState('menu')
   const [isDarkMode, setIsDarkMode] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -104,6 +161,8 @@ function Menu() {
                 animate={{ height: 'auto', opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
                 className="md:hidden border-t border-white/20 py-4"
+              <CartButton cartItems={cart} />
+
               >
                 <div className="flex flex-col space-y-2">
                   {navItems.map((item) => (
@@ -123,6 +182,8 @@ function Menu() {
                   ))}
                 </div>
               </motion.div>
+              <CartButton cartItems={cart} />
+
             )}
           </AnimatePresence>
         </div>
@@ -149,7 +210,13 @@ function Menu() {
       {/* Menu Content */}
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <MainFeature defaultTab="menu" />
+          <MainFeature defaultTab="menu" ref={(mainFeatureRef) => {
+            if (mainFeatureRef) {
+              // Store reference to access cart data
+              window.mainFeatureRef = mainFeatureRef;
+            }
+          }} />
+
         </div>
       </section>
 

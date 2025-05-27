@@ -722,7 +722,9 @@ function MainFeature({ defaultTab = 'menu' }) {
                         whileTap={{ scale: 0.95 }}
                         onClick={(e) => {
                           e.stopPropagation()
-                          shareItem(item)
+                          setShareItem(item)
+                          setShowShareModal(true)
+
                         }}
                         className="flex-1 px-3 py-2 rounded-lg font-medium text-sm border border-surface-300 dark:border-surface-600 text-surface-700 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-700 transition-all duration-300 flex items-center justify-center space-x-1"
                       >
@@ -1367,7 +1369,11 @@ function MainFeature({ defaultTab = 'menu' }) {
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    onClick={() => shareItem(selectedMenuItem)}
+                    onClick={() => {
+                      setShareItem(selectedMenuItem)
+                      setShowShareModal(true)
+                    }}
+
                     className="flex-1 px-6 py-3 rounded-xl font-semibold border-2 border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white transition-all duration-300 flex items-center justify-center space-x-2"
                   >
                     <ApperIcon name="Share2" className="w-5 h-5" />
