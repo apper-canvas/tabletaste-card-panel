@@ -1058,6 +1058,8 @@ function MainFeature() {
                 </motion.button>
               </form>
             </div>
+          </motion.div>
+        )}
 
 
         {/* Reviews Tab */}
