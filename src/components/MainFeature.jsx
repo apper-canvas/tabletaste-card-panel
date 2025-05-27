@@ -748,9 +748,6 @@ function MainFeature({ defaultTab = 'menu' }) {
               )}
           </motion.div>
 
-            </div>
-          </motion.div>
-        )}
 
 
 
