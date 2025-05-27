@@ -315,6 +315,8 @@ function MainFeature({ defaultTab = 'menu' }) {
       comment: ''
     })
     setHoverRating(0)
+  }
+
 
   const handleLookupSubmit = (e) => {
     e.preventDefault()
@@ -573,10 +575,10 @@ function MainFeature({ defaultTab = 'menu' }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
+            <div className="neu-card dark:neu-card-dark p-8 rounded-2xl">
+
             className="max-w-2xl mx-auto"
           >
-                </p>
-              </div>
               
               {isModifying && (
                 <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 p-4 rounded-xl mb-6">
@@ -714,10 +716,8 @@ function MainFeature({ defaultTab = 'menu' }) {
                   whileTap={{ scale: 0.98 }}
                   className="w-full bg-gradient-to-r from-primary to-primary-light text-white font-semibold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2"
                 >
-                  <span>{isModifying ? 'Update Reservation' : 'Submit Reservation Request'}</span>
+                  <ApperIcon name="Calendar" className="w-5 h-5" />
 
-                  <span>Submit Reservation Request</span>
-                </motion.button>
               </form>
               
               {isModifying && (
@@ -745,9 +745,10 @@ function MainFeature({ defaultTab = 'menu' }) {
                   <span>Cancel Modification</span>
                 </motion.button>
               )}
-
             </div>
           </motion.div>
+        )}
+
 
         {activeTab === 'manage-reservations' && (
           <motion.div
@@ -905,9 +906,6 @@ function MainFeature({ defaultTab = 'menu' }) {
             </div>
           </motion.div>
         )}
-
-        )}
-
         {activeTab === 'reviews' && (
           <motion.div
             key="reviews"
@@ -1118,19 +1116,12 @@ function MainFeature({ defaultTab = 'menu' }) {
                     Close
                   </motion.button>
                   
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => setSelectedMenuItem(null)}
-                    className="px-6 py-3 border border-surface-300 dark:border-surface-600 text-surface-700 dark:text-surface-300 rounded-xl hover:bg-surface-100 dark:hover:bg-surface-700 transition-colors"
-                  >
-                    Close
-                  </motion.button>
                 </div>
               </div>
             </motion.div>
           </motion.div>
         )}
+      </AnimatePresence>
 
       {/* Cancel Confirmation Dialog */}
       <AnimatePresence>
@@ -1191,7 +1182,6 @@ function MainFeature({ defaultTab = 'menu' }) {
         )}
       </AnimatePresence>
 
-      </AnimatePresence>
     </div>
   )
 }
