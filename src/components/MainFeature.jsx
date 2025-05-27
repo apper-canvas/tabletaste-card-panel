@@ -568,7 +568,6 @@ const MainFeature = React.forwardRef(function MainFeature({ defaultTab = 'menu' 
 
   return (
 
-  return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
       {/* Tab Navigation */}
       <motion.div 
