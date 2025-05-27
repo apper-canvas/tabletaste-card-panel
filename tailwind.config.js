@@ -17,6 +17,8 @@ export default {
           light: '#374151',
           dark: '#111827'
         },
+        border: '#e2e8f0',
+
         accent: '#EF4444',
         surface: {
           50: '#f8fafc',
