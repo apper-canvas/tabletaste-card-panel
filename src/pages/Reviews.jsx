@@ -188,6 +188,10 @@ function Reviews() {
           <MainFeature defaultTab="reviews" />
         </div>
       </section>
+      {/* Cart Sidebar */}
+      <CartSidebar />
+
+
 
       {/* Footer */}
       <footer className="bg-surface-900 dark:bg-surface-950 text-white py-12">
@@ -211,9 +215,6 @@ function Reviews() {
           </div>
         </div>
       
-      {/* Cart Sidebar */}
-      <CartSidebar />
-
       </footer>
     </div>
 
