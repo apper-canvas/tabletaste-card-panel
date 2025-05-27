@@ -119,6 +119,8 @@ function Home() {
                   <span className="font-medium">{item.label}</span>
                 </motion.button>
               ))}
+            </div>
+
               
 
             {/* Mobile menu button and dark mode toggle */}
