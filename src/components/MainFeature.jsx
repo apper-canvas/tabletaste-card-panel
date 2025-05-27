@@ -250,6 +250,8 @@ const timeSlots = [
 ]
 
 function MainFeature() {
+  const [searchQuery, setSearchQuery] = useState('')
+
   const [activeTab, setActiveTab] = useState('menu')
   const [favorites, setFavorites] = useState(() => {
     const saved = localStorage.getItem('tableTasteFavorites')
@@ -484,6 +486,21 @@ function MainFeature() {
   }
 
 
+  const getFilteredItems = () => {
+    if (!searchQuery.trim()) return []
+    
+    const allItems = menuCategories.flatMap(category => 
+      category.items.map(item => ({ ...item, category: category.name }))
+    )
+    
+    return allItems.filter(item => 
+      item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.description.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+  }
+
+
+
 
   // Component error display
   if (componentError) {
@@ -575,142 +592,303 @@ function MainFeature() {
                 </motion.button>
               ))}
             </div>
+            {/* Search Bar */}
+            <div className="max-w-2xl mx-auto mb-8">
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                  <ApperIcon name="Search" className="w-5 h-5 text-surface-400 dark:text-surface-500" />
+                </div>
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search menu items by name or ingredient..."
+                  className="w-full pl-12 pr-12 py-4 neu-card dark:neu-card-dark rounded-2xl text-surface-900 dark:text-white placeholder-surface-400 dark:placeholder-surface-500 focus:ring-2 focus:ring-primary focus:outline-none transition-all duration-300 text-lg"
+                />
+                {searchQuery && (
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    onClick={() => setSearchQuery('')}
+                    className="absolute inset-y-0 right-0 pr-4 flex items-center"
+                  >
+                    <ApperIcon name="X" className="w-5 h-5 text-surface-400 dark:text-surface-500 hover:text-surface-600 dark:hover:text-surface-300" />
+                  </motion.button>
+                )}
+              </div>
+            </div>
+
+
 
             {/* Menu Items */}
-            {/* Menu Items */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-              {menuCategories
-                .find(cat => cat.id === selectedCategory)
-                ?.items.map((item, index) => (
-                  <motion.div
-                    key={item.id}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    whileHover={{ y: -5 }}
-                    className={`neu-card dark:neu-card-dark rounded-2xl overflow-hidden group cursor-pointer transition-all duration-300 ${
-                      !item.available ? 'opacity-60' : ''
+            {/* Category Navigation - Only show when not searching */}
+            {!searchQuery && (
+              <div className="flex flex-wrap justify-center gap-4 mb-8">
+                {menuCategories.map((category) => (
+                  <motion.button
+                    key={category.id}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setSelectedCategory(category.id)}
+                    className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
+                      selectedCategory === category.id
+                        ? 'bg-gradient-to-r from-primary to-primary-light text-white shadow-lg'
+                        : 'neu-card dark:neu-card-dark text-surface-700 dark:text-surface-300 hover:shadow-md'
                     }`}
-                    onClick={() => setSelectedItem(item)}
                   >
-                    <div className="relative overflow-hidden">
-                      <img
-                        src={item.image}
-                        alt={item.name}
+                    <ApperIcon name={category.icon} className="w-5 h-5" />
+                    <span>{category.name}</span>
+                  </motion.button>
+                ))}
+              </div>
+            )}
+
+
                         className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                      {!item.available && (
-                        <div className="absolute inset-0 bg-surface-900/50 flex items-center justify-center">
-                          <span className="bg-accent text-white px-3 py-1 rounded-full text-sm font-medium">
-                            Sold Out
+            {/* Search Results or Menu Items */}
+            {searchQuery ? (
+              <div>
+                <div className="text-center mb-6">
+                  <p className="text-surface-600 dark:text-surface-400">
+                    {getFilteredItems().length > 0 
+                      ? `Found ${getFilteredItems().length} item${getFilteredItems().length === 1 ? '' : 's'} matching "${searchQuery}"`
+                      : `No items found matching "${searchQuery}"`
+                    }
+                  </p>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                  {getFilteredItems().map((item, index) => (
+                    <motion.div
+                      key={item.id}
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      whileHover={{ y: -5 }}
+                      className={`neu-card dark:neu-card-dark rounded-2xl overflow-hidden group cursor-pointer transition-all duration-300 ${
+                        !item.available ? 'opacity-60' : ''
+                      }`}
+                      onClick={() => setSelectedItem(item)}
+                    >
+                      <div className="relative overflow-hidden">
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
+                        {!item.available && (
+                          <div className="absolute inset-0 bg-surface-900/50 flex items-center justify-center">
+                            <span className="bg-accent text-white px-3 py-1 rounded-full text-sm font-medium">
+                              Sold Out
+                            </span>
+                          </div>
+                        )}
+                        <div className="absolute top-4 right-4">
+                          <span className="bg-primary text-white px-3 py-1 rounded-full text-lg font-bold">
+                            ${item.price}
                           </span>
                         </div>
-                      )}
-                      <div className="absolute top-4 right-4">
-                        <span className="bg-primary text-white px-3 py-1 rounded-full text-lg font-bold">
-                          ${item.price}
-                        </span>
-                      </div>
-                    </div>
-                    
-                    <div className="p-6">
-                      <div className="flex items-start justify-between mb-3">
-                        <h3 className="text-xl font-bold text-surface-900 dark:text-white">
-                          {item.name}
-                        </h3>
-                        <div className="flex items-center space-x-2">
-                          <motion.button
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                            onClick={(e) => {
-                              e.stopPropagation()
-                              toggleFavorite(item)
-                            }}
-                            className={`p-2 rounded-full transition-colors ${
-                              isFavorite(item.id)
-                                ? 'bg-red-100 text-red-600 dark:bg-red-900 dark:text-red-400'
-                                : 'bg-surface-100 text-surface-600 dark:bg-surface-700 dark:text-surface-400 hover:bg-surface-200 dark:hover:bg-surface-600'
-                            }`}
-                          >
-                            <ApperIcon 
-                              name="Heart" 
-                              className={`w-4 h-4 ${
-                                isFavorite(item.id) ? 'fill-current' : ''
-                              }`} 
-                            />
-                          </motion.button>
-                          <motion.button
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                            onClick={(e) => {
-                              e.stopPropagation()
-                              shareItem(item)
-                            }}
-                            className="p-2 rounded-full bg-surface-100 text-surface-600 dark:bg-surface-700 dark:text-surface-400 hover:bg-surface-200 dark:hover:bg-surface-600 transition-colors"
-                          >
-                            <ApperIcon name="Share2" className="w-4 h-4" />
-                          </motion.button>
+                        <div className="absolute top-4 left-4">
+                          <span className="bg-surface-900/80 text-white px-2 py-1 rounded-full text-xs font-medium backdrop-blur-sm">
+                            {item.category}
+                          </span>
                         </div>
                       </div>
                       
-                      <p className="text-surface-600 dark:text-surface-400 text-sm mb-4 line-clamp-2">
-                        {item.description}
-                      </p>
-                      
-                      <div className="space-y-3">
-                        {/* Dietary and Allergen Info */}
-                        <div className="flex flex-wrap gap-2">
-                          {item.dietary.map((diet) => (
-                            <span
-                              key={diet}
-                              className={`px-2 py-1 rounded-lg text-xs font-medium ${getDietaryBadgeColor(diet)}`}
+                      <div className="p-6">
+                        <div className="flex items-start justify-between mb-3">
+                          <h3 className="text-xl font-bold text-surface-900 dark:text-white">
+                            {item.name}
+                          </h3>
+                          <div className="flex items-center space-x-2">
+                            <motion.button
+                              whileHover={{ scale: 1.1 }}
+                              whileTap={{ scale: 0.9 }}
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                toggleFavorite(item)
+                              }}
+                              className={`p-2 rounded-full transition-colors ${
+                                isFavorite(item.id)
+                                  ? 'bg-red-100 text-red-600 dark:bg-red-900 dark:text-red-400'
+                                  : 'bg-surface-100 text-surface-600 dark:bg-surface-700 dark:text-surface-400 hover:bg-surface-200 dark:hover:bg-surface-600'
+                              }`}
                             >
-                              {diet}
-                            </span>
-                          ))}
-                          {item.allergens.length > 0 && (
-                            <span className="text-xs text-surface-500 dark:text-surface-400 font-medium">
-                              Contains: {item.allergens.join(', ')}
-                            </span>
-                          )}
+                              <ApperIcon 
+                                name="Heart" 
+                                className={`w-4 h-4 ${
+                                  isFavorite(item.id) ? 'fill-current' : ''
+                                }`} 
+                              />
+                            </motion.button>
+                            <motion.button
+                              whileHover={{ scale: 1.1 }}
+                              whileTap={{ scale: 0.9 }}
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                shareItem(item)
+                              }}
+                              className="p-2 rounded-full bg-surface-100 text-surface-600 dark:bg-surface-700 dark:text-surface-400 hover:bg-surface-200 dark:hover:bg-surface-600 transition-colors"
+                            >
+                              <ApperIcon name="Share2" className="w-4 h-4" />
+                            </motion.button>
+                          </div>
                         </div>
                         
-                        {/* Additional Info */}
-                        <div className="flex items-center justify-between text-xs text-surface-500 dark:text-surface-400">
-                          <span className="flex items-center space-x-1">
-                            <ApperIcon name="Clock" className="w-3 h-3" />
-                            <span>{item.prepTime}</span>
-                          </span>
-                          <span className="flex items-center space-x-1">
-                            <ApperIcon name="Flame" className="w-3 h-3" />
-                            <span>{item.calories} cal</span>
+                        <p className="text-surface-600 dark:text-surface-400 text-sm mb-4 line-clamp-2">
+                          {item.description}
+                        </p>
+                        
+                        <div className="space-y-3">
+                          {/* Dietary and Allergen Info */}
+                          <div className="flex flex-wrap gap-2">
+                            {item.dietary.map((diet) => (
+                              <span
+                                key={diet}
+                                className={`px-2 py-1 rounded-lg text-xs font-medium ${getDietaryBadgeColor(diet)}`}
+                              >
+                                {diet}
+                              </span>
+                            ))}
+                            {item.allergens.length > 0 && (
+                              <span className="text-xs text-surface-500 dark:text-surface-400 font-medium">
+                                Contains: {item.allergens.join(', ')}
+                              </span>
+                            )}
+                          </div>
+                          
+                          {/* Additional Info */}
+                          <div className="flex items-center justify-between text-xs text-surface-500 dark:text-surface-400">
+                            <span className="flex items-center space-x-1">
+                              <ApperIcon name="Clock" className="w-3 h-3" />
+                              <span>{item.prepTime}</span>
+                            </span>
+                            <span className="flex items-center space-x-1">
+                              <ApperIcon name="Flame" className="w-3 h-3" />
+                              <span>{item.calories} cal</span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                {menuCategories
+                  .find(cat => cat.id === selectedCategory)
+                  ?.items.map((item, index) => (
+                    <motion.div
+                      key={item.id}
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      whileHover={{ y: -5 }}
+                      className={`neu-card dark:neu-card-dark rounded-2xl overflow-hidden group cursor-pointer transition-all duration-300 ${
+                        !item.available ? 'opacity-60' : ''
+                      }`}
+                      onClick={() => setSelectedItem(item)}
+                    >
+                      <div className="relative overflow-hidden">
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
+                        {!item.available && (
+                          <div className="absolute inset-0 bg-surface-900/50 flex items-center justify-center">
+                            <span className="bg-accent text-white px-3 py-1 rounded-full text-sm font-medium">
+                              Sold Out
+                            </span>
+                          </div>
+                        )}
+                        <div className="absolute top-4 right-4">
+                          <span className="bg-primary text-white px-3 py-1 rounded-full text-lg font-bold">
+                            ${item.price}
                           </span>
                         </div>
                       </div>
-                    </div>
-                  </motion.div>
-                ))}
-            </div>
-          </motion.div>
-        )}
+                      
+                      <div className="p-6">
+                        <div className="flex items-start justify-between mb-3">
+                          <h3 className="text-xl font-bold text-surface-900 dark:text-white">
+                            {item.name}
+                          </h3>
+                          <div className="flex items-center space-x-2">
+                            <motion.button
+                              whileHover={{ scale: 1.1 }}
+                              whileTap={{ scale: 0.9 }}
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                toggleFavorite(item)
+                              }}
+                              className={`p-2 rounded-full transition-colors ${
+                                isFavorite(item.id)
+                                  ? 'bg-red-100 text-red-600 dark:bg-red-900 dark:text-red-400'
+                                  : 'bg-surface-100 text-surface-600 dark:bg-surface-700 dark:text-surface-400 hover:bg-surface-200 dark:hover:bg-surface-600'
+                              }`}
+                            >
+                              <ApperIcon 
+                                name="Heart" 
+                                className={`w-4 h-4 ${
+                                  isFavorite(item.id) ? 'fill-current' : ''
+                                }`} 
+                              />
+                            </motion.button>
+                            <motion.button
+                              whileHover={{ scale: 1.1 }}
+                              whileTap={{ scale: 0.9 }}
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                shareItem(item)
+                              }}
+                              className="p-2 rounded-full bg-surface-100 text-surface-600 dark:bg-surface-700 dark:text-surface-400 hover:bg-surface-200 dark:hover:bg-surface-600 transition-colors"
+                            >
+                              <ApperIcon name="Share2" className="w-4 h-4" />
+                            </motion.button>
+                          </div>
+                        </div>
+                        
+                        <p className="text-surface-600 dark:text-surface-400 text-sm mb-4 line-clamp-2">
+                          {item.description}
+                        </p>
+                        
+                        <div className="space-y-3">
+                          {/* Dietary and Allergen Info */}
+                          <div className="flex flex-wrap gap-2">
+                            {item.dietary.map((diet) => (
+                              <span
+                                key={diet}
+                                className={`px-2 py-1 rounded-lg text-xs font-medium ${getDietaryBadgeColor(diet)}`}
+                              >
+                                {diet}
+                              </span>
+                            ))}
+                            {item.allergens.length > 0 && (
+                              <span className="text-xs text-surface-500 dark:text-surface-400 font-medium">
+                                Contains: {item.allergens.join(', ')}
+                              </span>
+                            )}
+                          </div>
+                          
+                          {/* Additional Info */}
+                          <div className="flex items-center justify-between text-xs text-surface-500 dark:text-surface-400">
+                            <span className="flex items-center space-x-1">
+                              <ApperIcon name="Clock" className="w-3 h-3" />
+                              <span>{item.prepTime}</span>
+                            </span>
+                            <span className="flex items-center space-x-1">
+                              <ApperIcon name="Flame" className="w-3 h-3" />
+                              <span>{item.calories} cal</span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+              </div>
+            )}
 
-
-        {/* Reservations Tab */}
-        {activeTab === 'reservations' && (
-          <motion.div
-            key="reservations"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="max-w-2xl mx-auto"
-          >
-            <div className="neu-card dark:neu-card-dark p-6 md:p-8 rounded-2xl">
-              <h3 className="text-2xl md:text-3xl font-bold text-surface-900 dark:text-white mb-8 text-center">
-                Reserve Your Table
-              </h3>
-              
-              <form onSubmit={handleReservationSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
