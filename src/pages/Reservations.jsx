@@ -109,6 +109,8 @@ function Reservations() {
               >
                 <ApperIcon name={isDarkMode ? "Sun" : "Moon"} className="w-5 h-5" />
               </motion.button>
+              <CartButton />
+
 
               <motion.button
                 whileTap={{ scale: 0.95 }}
@@ -122,9 +124,6 @@ function Reservations() {
 
           {/* Mobile Navigation */}
           <AnimatePresence>
-              
-              <CartButton />
-
             {isMenuOpen && (
               <motion.div
                 initial={{ height: 0, opacity: 0 }}
