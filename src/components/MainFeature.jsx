@@ -686,6 +686,8 @@ function MainFeature() {
                           </span>
                         </div>
                       </div>
+                    </div>
+
 
                   </motion.div>
                 ))}
