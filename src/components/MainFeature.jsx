@@ -566,7 +566,6 @@ function MainFeature({ defaultTab = 'menu' }) {
     return favorites.some(fav => fav.id === item.id)
   }
 
-  }
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
