@@ -131,6 +131,9 @@ function Menu() {
                   <span className="font-medium">{item.label}</span>
                 </motion.button>
               ))}
+              
+              <CartButton cartItems={cart} />
+
             </div>
 
             {/* Mobile menu button and dark mode toggle */}
@@ -161,7 +164,6 @@ function Menu() {
                 animate={{ height: 'auto', opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
                 className="md:hidden border-t border-white/20 py-4"
-              <CartButton cartItems={cart} />
 
               >
                 <div className="flex flex-col space-y-2">
@@ -182,7 +184,6 @@ function Menu() {
                   ))}
                 </div>
               </motion.div>
-              <CartButton cartItems={cart} />
 
             )}
           </AnimatePresence>
