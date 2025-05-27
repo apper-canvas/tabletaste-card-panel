@@ -85,11 +85,12 @@ function App() {
         pauseOnHover
         theme="light"
         className="z-50"
+      />
+
       
       {/* Cart Sidebar */}
       <CartSidebar />
 
-      />
     </div>
   )
 }
