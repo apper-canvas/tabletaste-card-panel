@@ -621,29 +621,6 @@ function MainFeature() {
 
 
             {/* Menu Items */}
-            {/* Category Navigation - Only show when not searching */}
-            {!searchQuery && (
-              <div className="flex flex-wrap justify-center gap-4 mb-8">
-                {menuCategories.map((category) => (
-                  <motion.button
-                    key={category.id}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => setSelectedCategory(category.id)}
-                    className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
-                      selectedCategory === category.id
-                        ? 'bg-gradient-to-r from-primary to-primary-light text-white shadow-lg'
-                        : 'neu-card dark:neu-card-dark text-surface-700 dark:text-surface-300 hover:shadow-md'
-                    }`}
-                  >
-                    <ApperIcon name={category.icon} className="w-5 h-5" />
-                    <span>{category.name}</span>
-                  </motion.button>
-                ))}
-              </div>
-            )}
-
-
                         className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
             {/* Search Results or Menu Items */}
             {searchQuery ? (
