@@ -568,23 +568,16 @@ function MainFeature({ defaultTab = 'menu' }) {
         )}
 
         {activeTab === 'reservations' && (
+        {activeTab === 'reservations' && (
           <motion.div
             key="reservations"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-          >
-            <motion.div
-              key="reservations"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-
-
             className="max-w-2xl mx-auto"
           >
+
               
               {isModifying && (
                 <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 p-4 rounded-xl mb-6">
@@ -720,8 +713,12 @@ function MainFeature({ defaultTab = 'menu' }) {
                   type="submit"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
+                  className="w-full bg-gradient-to-r from-primary to-primary-light text-white font-semibold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2"
+                >
+                  <ApperIcon name="Calendar" className="w-5 h-5" />
                   <span>{isModifying ? 'Update Reservation' : 'Submit Reservation'}</span>
                 </motion.button>
+
 
               </form>
               
@@ -752,8 +749,8 @@ function MainFeature({ defaultTab = 'menu' }) {
               )}
             </div>
           </motion.div>
+        )}
 
-          </motion.div>
         )}
 
 
