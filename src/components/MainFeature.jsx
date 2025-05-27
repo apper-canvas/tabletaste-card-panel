@@ -14,62 +14,112 @@ const menuCategories = [
         id: 1,
         name: 'Truffle Arancini',
         description: 'Crispy risotto balls with black truffle, parmesan, and herb aioli',
+        ingredients: ['Arborio rice', 'Black truffle', 'Parmesan cheese', 'Herbs', 'Garlic aioli'],
+        allergens: ['Dairy', 'Gluten'],
         price: 18,
         image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
         dietary: ['vegetarian'],
-        available: true
+        available: true,
+        prepTime: '15 mins',
+        calories: 320
       },
       {
         id: 2,
         name: 'Seared Scallops',
         description: 'Pan-seared scallops with cauliflower purée and pancetta chips',
+        ingredients: ['Fresh scallops', 'Cauliflower', 'Pancetta', 'Butter', 'White wine'],
+        allergens: ['Shellfish', 'Dairy'],
         price: 24,
         image: 'https://images.unsplash.com/photo-1559847844-d5f7bf4d3e78?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
         dietary: ['gluten-free'],
-        available: true
+        available: true,
+        prepTime: '12 mins',
+        calories: 180
       },
       {
         id: 3,
         name: 'Burrata Salad',
         description: 'Fresh burrata with heirloom tomatoes, basil oil, and aged balsamic',
+        ingredients: ['Burrata cheese', 'Heirloom tomatoes', 'Fresh basil', 'Extra virgin olive oil', 'Aged balsamic vinegar'],
+        allergens: ['Dairy'],
         price: 16,
         image: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
         dietary: ['vegetarian', 'gluten-free'],
-        available: true
+        available: true,
+        prepTime: '8 mins',
+        calories: 220
+      },
+      {
+        id: 4,
+        name: 'Oysters Rockefeller',
+        description: 'Fresh oysters baked with spinach, herbs, and hollandaise sauce',
+        ingredients: ['Fresh oysters', 'Spinach', 'Shallots', 'Herbs', 'Hollandaise sauce', 'Breadcrumbs'],
+        allergens: ['Shellfish', 'Dairy', 'Eggs'],
+        price: 22,
+        image: 'https://images.unsplash.com/photo-1606853965439-14d4b27c5514?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+        dietary: [],
+        available: true,
+        prepTime: '18 mins',
+        calories: 160
       }
     ]
   },
   {
     id: 'entrees',
-    name: 'Entrees',
+    name: 'Main Course',
     icon: 'UtensilsCrossed',
     items: [
       {
-        id: 4,
+        id: 5,
         name: 'Wagyu Ribeye',
         description: '12oz A5 Wagyu ribeye with roasted bone marrow and seasonal vegetables',
+        ingredients: ['A5 Wagyu ribeye', 'Bone marrow', 'Seasonal vegetables', 'Rosemary', 'Sea salt'],
+        allergens: [],
         price: 85,
         image: 'https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
         dietary: ['gluten-free'],
-        available: true
-      },
-      {
-        id: 5,
-        name: 'Lobster Risotto',
-        description: 'Creamy arborio rice with maine lobster, saffron, and micro herbs',
-        price: 42,
-        image: 'https://images.unsplash.com/photo-1563379091339-03246963d293?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-        dietary: ['gluten-free'],
-        available: true
+        available: true,
+        prepTime: '25 mins',
+        calories: 680
       },
       {
         id: 6,
+        name: 'Lobster Risotto',
+        description: 'Creamy arborio rice with maine lobster, saffron, and micro herbs',
+        ingredients: ['Maine lobster', 'Arborio rice', 'Saffron', 'White wine', 'Parmesan', 'Micro herbs'],
+        allergens: ['Shellfish', 'Dairy', 'Alcohol'],
+        price: 42,
+        image: 'https://images.unsplash.com/photo-1563379091339-03246963d293?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+        dietary: ['gluten-free'],
+        available: true,
+        prepTime: '20 mins',
+        calories: 420
+      },
+      {
+        id: 7,
         name: 'Duck Confit',
         description: 'Slow-cooked duck leg with cherry gastrique and wild rice pilaf',
+        ingredients: ['Duck leg', 'Wild rice', 'Cherries', 'Red wine vinegar', 'Herbs de Provence'],
+        allergens: ['Alcohol'],
         price: 38,
         image: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
         dietary: ['gluten-free'],
-        available: false
+        available: false,
+        prepTime: '35 mins',
+        calories: 520
+      },
+      {
+        id: 8,
+        name: 'Vegan Wellington',
+        description: 'Mushroom and walnut wellington with roasted vegetables and red wine jus',
+        ingredients: ['Mixed mushrooms', 'Walnuts', 'Puff pastry', 'Root vegetables', 'Red wine', 'Fresh herbs'],
+        allergens: ['Nuts', 'Gluten', 'Alcohol'],
+        price: 32,
+        image: 'https://images.unsplash.com/photo-1565299507177-b0ac66763ef1?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+        dietary: ['vegan'],
+        available: true,
+        prepTime: '30 mins',
+        calories: 480
       }
     ]
   },
@@ -79,35 +129,120 @@ const menuCategories = [
     icon: 'Cake',
     items: [
       {
-        id: 7,
+        id: 9,
         name: 'Chocolate Soufflé',
         description: 'Warm dark chocolate soufflé with vanilla bean ice cream',
+        ingredients: ['Dark chocolate', 'Eggs', 'Sugar', 'Vanilla beans', 'Heavy cream', 'Butter'],
+        allergens: ['Dairy', 'Eggs', 'Gluten'],
         price: 14,
         image: 'https://images.unsplash.com/photo-1541599468348-e96984315921?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
         dietary: ['vegetarian'],
-        available: true
+        available: true,
+        prepTime: '25 mins',
+        calories: 380
       },
       {
-        id: 8,
+        id: 10,
         name: 'Lemon Tart',
         description: 'Classic French lemon tart with torched meringue and berry coulis',
+        ingredients: ['Lemons', 'Pastry crust', 'Eggs', 'Sugar', 'Butter', 'Mixed berries'],
+        allergens: ['Dairy', 'Eggs', 'Gluten'],
         price: 12,
         image: 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
         dietary: ['vegetarian'],
-        available: true
+        available: true,
+        prepTime: '15 mins',
+        calories: 320
       },
       {
-        id: 9,
+        id: 11,
         name: 'Tiramisu',
         description: 'Traditional tiramisu with espresso-soaked ladyfingers and mascarpone',
+        ingredients: ['Mascarpone', 'Ladyfingers', 'Espresso', 'Cocoa powder', 'Marsala wine', 'Eggs'],
+        allergens: ['Dairy', 'Eggs', 'Gluten', 'Alcohol'],
         price: 13,
         image: 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
         dietary: ['vegetarian'],
-        available: true
+        available: true,
+        prepTime: '10 mins',
+        calories: 420
+      },
+      {
+        id: 12,
+        name: 'Vegan Chocolate Mousse',
+        description: 'Rich chocolate mousse made with avocado and coconut cream',
+        ingredients: ['Avocado', 'Coconut cream', 'Dark chocolate', 'Maple syrup', 'Vanilla extract'],
+        allergens: [],
+        price: 11,
+        image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+        dietary: ['vegan', 'gluten-free'],
+        available: true,
+        prepTime: '12 mins',
+        calories: 280
+      }
+    ]
+  },
+  {
+    id: 'drinks',
+    name: 'Beverages',
+    icon: 'Coffee',
+    items: [
+      {
+        id: 13,
+        name: 'Craft Cocktail Selection',
+        description: 'House-made cocktails featuring premium spirits and fresh ingredients',
+        ingredients: ['Premium spirits', 'Fresh fruits', 'Herbs', 'House-made syrups', 'Artisanal bitters'],
+        allergens: ['Alcohol'],
+        price: 16,
+        image: 'https://images.unsplash.com/photo-1551538827-9c037cb4f32a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+        dietary: [],
+        available: true,
+        prepTime: '5 mins',
+        calories: 180
+      },
+      {
+        id: 14,
+        name: 'Wine Pairing Selection',
+        description: 'Curated wine selection to complement your dining experience',
+        ingredients: ['Premium wines', 'Varietals from renowned vineyards'],
+        allergens: ['Alcohol', 'Sulfites'],
+        price: 12,
+        image: 'https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+        dietary: [],
+        available: true,
+        prepTime: '2 mins',
+        calories: 120
+      },
+      {
+        id: 15,
+        name: 'Artisanal Coffee',
+        description: 'Single-origin coffee beans roasted in-house with precision',
+        ingredients: ['Single-origin coffee beans', 'Filtered water'],
+        allergens: [],
+        price: 6,
+        image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+        dietary: ['vegan'],
+        available: true,
+        prepTime: '4 mins',
+        calories: 5
+      },
+      {
+        id: 16,
+        name: 'Fresh Pressed Juices',
+        description: 'Cold-pressed juices made from organic fruits and vegetables',
+        ingredients: ['Organic fruits', 'Organic vegetables', 'Fresh herbs'],
+        allergens: [],
+        price: 8,
+        image: 'https://images.unsplash.com/photo-1622597467836-f3285f2131b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+        dietary: ['vegan', 'gluten-free'],
+        available: true,
+        prepTime: '3 mins',
+        calories: 80
       }
     ]
   }
 ]
+
 
 const timeSlots = [
   '5:00 PM', '5:30 PM', '6:00 PM', '6:30 PM', '7:00 PM', 
@@ -116,6 +251,12 @@ const timeSlots = [
 
 function MainFeature() {
   const [activeTab, setActiveTab] = useState('menu')
+  const [favorites, setFavorites] = useState(() => {
+    const saved = localStorage.getItem('tableTasteFavorites')
+    return saved ? JSON.parse(saved) : []
+  })
+  
+
   const [selectedCategory, setSelectedCategory] = useState('appetizers')
   const [selectedItem, setSelectedItem] = useState(null)
   
@@ -272,15 +413,76 @@ function MainFeature() {
     }, 'Date')
   }
 
-
   const getDietaryBadgeColor = (dietary) => {
     switch (dietary) {
       case 'vegetarian': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
-      case 'vegan': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+      case 'vegan': return 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200'
       case 'gluten-free': return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
       default: return 'bg-surface-100 text-surface-800 dark:bg-surface-700 dark:text-surface-200'
     }
   }
+
+  const getAllergenBadgeColor = (allergen) => {
+    const colors = {
+      'Dairy': 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
+      'Gluten': 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200',
+      'Nuts': 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200',
+      'Shellfish': 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200',
+      'Eggs': 'bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200',
+      'Alcohol': 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200',
+      'Sulfites': 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-200'
+    }
+    return colors[allergen] || 'bg-surface-100 text-surface-800 dark:bg-surface-700 dark:text-surface-200'
+  }
+
+  const toggleFavorite = (item) => {
+    const isCurrentlyFavorite = favorites.some(fav => fav.id === item.id)
+    let newFavorites
+    
+    if (isCurrentlyFavorite) {
+      newFavorites = favorites.filter(fav => fav.id !== item.id)
+      toast.info(`Removed ${item.name} from favorites`)
+    } else {
+      newFavorites = [...favorites, item]
+      toast.success(`Added ${item.name} to favorites`)
+    }
+    
+    setFavorites(newFavorites)
+    localStorage.setItem('tableTasteFavorites', JSON.stringify(newFavorites))
+  }
+
+  const shareItem = async (item) => {
+    const shareData = {
+      title: `${item.name} - TableTaste`,
+      text: `Check out this delicious ${item.name}: ${item.description}`,
+      url: window.location.href
+    }
+
+    if (navigator.share && navigator.canShare(shareData)) {
+      try {
+        await navigator.share(shareData)
+        toast.success('Dish shared successfully!')
+      } catch (error) {
+        if (error.name !== 'AbortError') {
+          toast.error('Failed to share dish')
+        }
+      }
+    } else {
+      // Fallback to copying to clipboard
+      try {
+        const textToShare = `${item.name} - ${item.description}\nPrice: $${item.price}\nView at: ${window.location.href}`
+        await navigator.clipboard.writeText(textToShare)
+        toast.success('Dish details copied to clipboard!')
+      } catch (error) {
+        toast.error('Failed to copy dish details')
+      }
+    }
+  }
+
+  const isFavorite = (itemId) => {
+    return favorites.some(fav => fav.id === itemId)
+  }
+
 
 
   // Component error display
@@ -411,14 +613,51 @@ function MainFeature() {
                     </div>
                     
                     <div className="p-6">
-                      <h3 className="text-xl font-bold text-surface-900 dark:text-white mb-2">
-                        {item.name}
-                      </h3>
+                      <div className="flex items-start justify-between mb-3">
+                        <h3 className="text-xl font-bold text-surface-900 dark:text-white">
+                          {item.name}
+                        </h3>
+                        <div className="flex items-center space-x-2">
+                          <motion.button
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              toggleFavorite(item)
+                            }}
+                            className={`p-2 rounded-full transition-colors ${
+                              isFavorite(item.id)
+                                ? 'bg-red-100 text-red-600 dark:bg-red-900 dark:text-red-400'
+                                : 'bg-surface-100 text-surface-600 dark:bg-surface-700 dark:text-surface-400 hover:bg-surface-200 dark:hover:bg-surface-600'
+                            }`}
+                          >
+                            <ApperIcon 
+                              name="Heart" 
+                              className={`w-4 h-4 ${
+                                isFavorite(item.id) ? 'fill-current' : ''
+                              }`} 
+                            />
+                          </motion.button>
+                          <motion.button
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              shareItem(item)
+                            }}
+                            className="p-2 rounded-full bg-surface-100 text-surface-600 dark:bg-surface-700 dark:text-surface-400 hover:bg-surface-200 dark:hover:bg-surface-600 transition-colors"
+                          >
+                            <ApperIcon name="Share2" className="w-4 h-4" />
+                          </motion.button>
+                        </div>
+                      </div>
+                      
                       <p className="text-surface-600 dark:text-surface-400 text-sm mb-4 line-clamp-2">
                         {item.description}
                       </p>
                       
-                      {item.dietary.length > 0 && (
+                      <div className="space-y-3">
+                        {/* Dietary and Allergen Info */}
                         <div className="flex flex-wrap gap-2">
                           {item.dietary.map((diet) => (
                             <span
@@ -428,9 +667,26 @@ function MainFeature() {
                               {diet}
                             </span>
                           ))}
+                          {item.allergens.length > 0 && (
+                            <span className="text-xs text-surface-500 dark:text-surface-400 font-medium">
+                              Contains: {item.allergens.join(', ')}
+                            </span>
+                          )}
                         </div>
-                      )}
-                    </div>
+                        
+                        {/* Additional Info */}
+                        <div className="flex items-center justify-between text-xs text-surface-500 dark:text-surface-400">
+                          <span className="flex items-center space-x-1">
+                            <ApperIcon name="Clock" className="w-3 h-3" />
+                            <span>{item.prepTime}</span>
+                          </span>
+                          <span className="flex items-center space-x-1">
+                            <ApperIcon name="Flame" className="w-3 h-3" />
+                            <span>{item.calories} cal</span>
+                          </span>
+                        </div>
+                      </div>
+
                   </motion.div>
                 ))}
             </div>
@@ -809,15 +1065,94 @@ function MainFeature() {
                     ))}
                   </div>
                 )}
+                {selectedItem.allergens.length > 0 && (
+                  <div className="mb-6">
+                    <h4 className="text-lg font-semibold text-surface-900 dark:text-white mb-3">
+                      Allergen Information
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedItem.allergens.map((allergen) => (
+                        <span
+                          key={allergen}
+                          className={`px-3 py-1 rounded-lg text-sm font-medium ${getAllergenBadgeColor(allergen)}`}
+                        >
+                          {allergen}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {selectedItem.ingredients && (
+                  <div className="mb-6">
+                    <h4 className="text-lg font-semibold text-surface-900 dark:text-white mb-3">
+                      Ingredients
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedItem.ingredients.map((ingredient, index) => (
+                        <span
+                          key={index}
+                          className="px-2 py-1 bg-surface-100 dark:bg-surface-700 text-surface-700 dark:text-surface-300 rounded text-sm"
+                        >
+                          {ingredient}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                <div className="flex items-center justify-between text-sm text-surface-600 dark:text-surface-400 mb-6">
+                  <span className="flex items-center space-x-2">
+                    <ApperIcon name="Clock" className="w-4 h-4" />
+                    <span>Prep time: {selectedItem.prepTime}</span>
+                  </span>
+                  <span className="flex items-center space-x-2">
+                    <ApperIcon name="Flame" className="w-4 h-4" />
+                    <span>{selectedItem.calories} calories</span>
+                  </span>
+                </div>
 
                 <div className="flex flex-col sm:flex-row gap-4">
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
+                    onClick={() => {
+                      toggleFavorite(selectedItem)
+                    }}
+                    className={`flex-1 px-6 py-3 rounded-xl font-semibold transition-all flex items-center justify-center space-x-2 ${
+                      isFavorite(selectedItem.id)
+                        ? 'bg-red-500 text-white hover:bg-red-600'
+                        : 'bg-surface-200 dark:bg-surface-700 text-surface-700 dark:text-surface-300 hover:bg-surface-300 dark:hover:bg-surface-600'
+                    }`}
+                  >
+                    <ApperIcon 
+                      name="Heart" 
+                      className={`w-5 h-5 ${
+                        isFavorite(selectedItem.id) ? 'fill-current' : ''
+                      }`} 
+                    />
+                    <span>{isFavorite(selectedItem.id) ? 'Remove from Favorites' : 'Add to Favorites'}</span>
+                  </motion.button>
+                  
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => shareItem(selectedItem)}
+                    className="flex-1 px-6 py-3 rounded-xl font-semibold bg-primary text-white hover:bg-primary-dark transition-all flex items-center justify-center space-x-2"
+                  >
+                    <ApperIcon name="Share2" className="w-5 h-5" />
+                    <span>Share this Dish</span>
+                  </motion.button>
+                </div>
+
+                <div className="flex justify-center mt-4">
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                     disabled={!selectedItem.available}
-                    className={`flex-1 px-6 py-3 rounded-xl font-semibold transition-all ${
+                    className={`px-8 py-3 rounded-xl font-semibold transition-all flex items-center space-x-2 ${
                       selectedItem.available
-                        ? 'bg-primary text-white hover:bg-primary-dark'
+                        ? 'bg-gradient-to-r from-primary to-primary-light text-white hover:shadow-lg'
                         : 'bg-surface-300 dark:bg-surface-600 text-surface-500 dark:text-surface-400 cursor-not-allowed'
                     }`}
                     onClick={() => {
@@ -827,19 +1162,10 @@ function MainFeature() {
                       }
                     }}
                   >
-                    {selectedItem.available ? 'Add to Order' : 'Currently Unavailable'}
+                    <ApperIcon name="Plus" className="w-5 h-5" />
+                    <span>{selectedItem.available ? 'Add to Order' : 'Currently Unavailable'}</span>
                   </motion.button>
-                  
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => setSelectedItem(null)}
-                    className="px-6 py-3 rounded-xl font-semibold border border-surface-300 dark:border-surface-600 text-surface-700 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-700 transition-all"
-                  >
-                    Close
-                  </motion.button>
-                </div>
-              </div>
+
             </motion.div>
           </motion.div>
         )}
