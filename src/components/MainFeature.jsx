@@ -1404,6 +1404,8 @@ function MainFeature({ defaultTab = 'menu' }) {
                 </div>
               </div>
 
+            </motion.div>
+
           </motion.div>
         )}
       </AnimatePresence>
