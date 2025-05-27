@@ -9,6 +9,9 @@ const menuCategories = {
       id: 1,
       name: "Truffle Arancini",
       description: "Crispy risotto balls with black truffle, parmesan, and herb aioli",
+      ingredients: ["Arborio rice", "Black truffle", "Parmesan cheese", "Fresh herbs", "Garlic", "Onion", "Vegetable stock", "White wine", "Olive oil", "Breadcrumbs"],
+      allergens: ["Gluten", "Dairy", "Eggs"],
+      nutritionalHighlights: ["Rich in protein", "Contains antioxidants", "Source of calcium"],
       price: 18,
       image: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
       dietary: ["vegetarian"]
@@ -17,6 +20,9 @@ const menuCategories = {
       id: 2,
       name: "Seared Scallops",
       description: "Pan-seared diver scallops with cauliflower purée and pancetta",
+      ingredients: ["Diver scallops", "Cauliflower", "Pancetta", "Heavy cream", "Butter", "Thyme", "Garlic", "White wine", "Lemon", "Sea salt"],
+      allergens: ["Shellfish", "Dairy", "Pork"],
+      nutritionalHighlights: ["High in protein", "Low in carbs", "Rich in omega-3", "Source of vitamin B12"],
       price: 24,
       image: "https://images.unsplash.com/photo-1559847844-5315695dadae?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
       dietary: ["gluten-free"]
@@ -25,6 +31,9 @@ const menuCategories = {
       id: 3,
       name: "Burrata Caprese",
       description: "Fresh burrata with heirloom tomatoes, basil oil, and aged balsamic",
+      ingredients: ["Burrata cheese", "Heirloom tomatoes", "Fresh basil", "Extra virgin olive oil", "Aged balsamic vinegar", "Sea salt", "Black pepper", "Microgreens"],
+      allergens: ["Dairy"],
+      nutritionalHighlights: ["Rich in calcium", "Source of lycopene", "Contains healthy fats", "High in vitamin C"],
       price: 16,
       image: "https://images.unsplash.com/photo-1608897013039-887f21d8c804?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
       dietary: ["vegetarian", "gluten-free"]
@@ -35,6 +44,9 @@ const menuCategories = {
       id: 4,
       name: "Wagyu Ribeye",
       description: "12oz Australian wagyu with roasted bone marrow and red wine jus",
+      ingredients: ["Australian wagyu ribeye", "Bone marrow", "Red wine", "Beef stock", "Shallots", "Garlic", "Fresh thyme", "Butter", "Sea salt", "Black pepper", "Roasted vegetables"],
+      allergens: ["Dairy"],
+      nutritionalHighlights: ["Exceptional protein source", "Rich in iron", "High in B vitamins", "Contains zinc"],
       price: 85,
       image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
       dietary: ["gluten-free"]
@@ -43,6 +55,9 @@ const menuCategories = {
       id: 5,
       name: "Lobster Thermidor",
       description: "Whole Maine lobster with cognac cream sauce and gruyère gratinée",
+      ingredients: ["Maine lobster", "Cognac", "Heavy cream", "Gruyère cheese", "Egg yolks", "Mustard", "Shallots", "White wine", "Butter", "Fresh tarragon", "Paprika"],
+      allergens: ["Shellfish", "Dairy", "Eggs"],
+      nutritionalHighlights: ["High in protein", "Rich in omega-3", "Source of vitamin B12", "Contains selenium"],
       price: 68,
       image: "https://images.unsplash.com/photo-1559847844-d72ee0d83afe?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
       dietary: ["gluten-free"]
@@ -51,6 +66,9 @@ const menuCategories = {
       id: 6,
       name: "Duck Confit",
       description: "Slow-cooked duck leg with cherry gastrique and wild rice pilaf",
+      ingredients: ["Duck leg", "Duck fat", "Wild rice", "Dried cherries", "Red wine vinegar", "Honey", "Shallots", "Fresh herbs", "Garlic", "Bay leaves", "Vegetable stock"],
+      allergens: [],
+      nutritionalHighlights: ["High in protein", "Rich in iron", "Source of healthy fats", "Contains antioxidants"],
       price: 42,
       image: "https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
       dietary: ["gluten-free"]
@@ -59,6 +77,9 @@ const menuCategories = {
       id: 7,
       name: "Vegetarian Tasting",
       description: "Chef's selection of seasonal vegetables with quinoa and tahini dressing",
+      ingredients: ["Seasonal vegetables", "Quinoa", "Tahini", "Lemon juice", "Olive oil", "Garlic", "Fresh herbs", "Pomegranate seeds", "Roasted nuts", "Microgreens"],
+      allergens: ["Sesame", "Tree nuts"],
+      nutritionalHighlights: ["Complete protein", "High in fiber", "Rich in vitamins", "Plant-based antioxidants"],
       price: 38,
       image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
       dietary: ["vegetarian", "vegan", "gluten-free"]
@@ -69,6 +90,9 @@ const menuCategories = {
       id: 8,
       name: "Chocolate Soufflé",
       description: "Dark chocolate soufflé with vanilla bean ice cream and gold leaf",
+      ingredients: ["Dark chocolate", "Eggs", "Sugar", "Butter", "Heavy cream", "Vanilla beans", "Milk", "Cornstarch", "Gold leaf", "Powdered sugar"],
+      allergens: ["Dairy", "Eggs", "Gluten"],
+      nutritionalHighlights: ["Rich in antioxidants", "Source of calcium", "Contains magnesium"],
       price: 16,
       image: "https://images.unsplash.com/photo-1551024601-bec78aea704b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
       dietary: ["vegetarian"]
@@ -77,12 +101,16 @@ const menuCategories = {
       id: 9,
       name: "Lemon Tart",
       description: "Meyer lemon curd tart with candied lemon and lavender honey",
+      ingredients: ["Meyer lemons", "Pastry flour", "Butter", "Eggs", "Sugar", "Heavy cream", "Lavender honey", "Vanilla extract", "Candied lemon zest"],
+      allergens: ["Gluten", "Dairy", "Eggs"],
+      nutritionalHighlights: ["Rich in vitamin C", "Contains antioxidants", "Source of citrus flavonoids"],
       price: 14,
       image: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
       dietary: ["vegetarian"]
     }
   ]
 }
+
 
 const formatDate = (date) => {
   try {
@@ -130,6 +158,17 @@ function MainFeature({ defaultTab = 'menu' }) {
 
   const [selectedCategory, setSelectedCategory] = useState('appetizers')
   const [selectedMenuItem, setSelectedMenuItem] = useState(null)
+  const [favorites, setFavorites] = useState(() => {
+    const saved = localStorage.getItem('tabletaste-favorites')
+    return saved ? JSON.parse(saved) : []
+  })
+  const [cart, setCart] = useState(() => {
+    const saved = localStorage.getItem('tabletaste-cart')
+    return saved ? JSON.parse(saved) : []
+  })
+  const [showShareModal, setShowShareModal] = useState(false)
+  const [shareItem, setShareItem] = useState(null)
+
   const [lookupForm, setLookupForm] = useState({
     confirmationNumber: '',
     email: ''
@@ -450,6 +489,83 @@ function MainFeature({ defaultTab = 'menu' }) {
       }
     }
     return slots
+
+  // Save favorites to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('tabletaste-favorites', JSON.stringify(favorites))
+  }, [favorites])
+
+  // Save cart to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('tabletaste-cart', JSON.stringify(cart))
+  }, [cart])
+
+  const toggleFavorite = (item) => {
+    const isFavorite = favorites.some(fav => fav.id === item.id)
+    if (isFavorite) {
+      setFavorites(favorites.filter(fav => fav.id !== item.id))
+      toast.info(`${item.name} removed from favorites`)
+    } else {
+      setFavorites([...favorites, item])
+      toast.success(`${item.name} added to favorites!`)
+    }
+  }
+
+  const addToCart = (item, quantity = 1) => {
+    const existingItem = cart.find(cartItem => cartItem.id === item.id)
+    if (existingItem) {
+      setCart(cart.map(cartItem => 
+        cartItem.id === item.id 
+          ? { ...cartItem, quantity: cartItem.quantity + quantity }
+          : cartItem
+      ))
+      toast.success(`${item.name} quantity updated in cart!`)
+    } else {
+      setCart([...cart, { ...item, quantity }])
+      toast.success(`${item.name} added to cart!`)
+    }
+  }
+
+  const shareItem = (item) => {
+    setShareItem(item)
+    setShowShareModal(true)
+  }
+
+  const handleShare = (platform) => {
+    if (!shareItem) return
+    
+    const url = encodeURIComponent(window.location.href)
+    const text = encodeURIComponent(`Check out this amazing dish: ${shareItem.name} at TableTaste! ${shareItem.description}`)
+    
+    const shareUrls = {
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+      twitter: `https://twitter.com/intent/tweet?text=${text}&url=${url}`,
+      whatsapp: `https://wa.me/?text=${text}%20${url}`,
+      email: `mailto:?subject=Check out this dish at TableTaste&body=${text} ${decodeURIComponent(url)}`,
+      copy: () => {
+        navigator.clipboard.writeText(`${shareItem.name} at TableTaste: ${shareItem.description} - ${window.location.href}`)
+        toast.success('Link copied to clipboard!')
+      }
+    }
+    
+    if (platform === 'copy') {
+      shareUrls.copy()
+    } else {
+      window.open(shareUrls[platform], '_blank', 'width=600,height=400')
+      toast.success(`Shared ${shareItem.name} on ${platform}!`)
+    }
+    
+    setShowShareModal(false)
+  }
+
+  const getCartItemCount = () => {
+    return cart.reduce((total, item) => total + item.quantity, 0)
+  }
+
+  const isFavorite = (item) => {
+    return favorites.some(fav => fav.id === item.id)
+  }
+
   }
 
   return (
@@ -523,16 +639,15 @@ function MainFeature({ defaultTab = 'menu' }) {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   whileHover={{ y: -5 }}
-                  className="neu-card dark:neu-card-dark rounded-2xl overflow-hidden cursor-pointer group"
-                  onClick={() => setSelectedMenuItem(item)}
+                  className="neu-card dark:neu-card-dark rounded-2xl overflow-hidden group"
                 >
-                  <div className="relative h-48 overflow-hidden">
+                  <div className="relative h-48 overflow-hidden cursor-pointer" onClick={() => setSelectedMenuItem(item)}>
                     <img
                       src={item.image}
                       alt={item.name}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
-                    <div className="absolute top-4 right-4 bg-primary text-white px-3 py-1 rounded-full font-semibold">
+                    <div className="absolute top-4 right-4 bg-primary text-white px-4 py-2 rounded-full font-bold text-lg shadow-lg">
                       ${item.price}
                     </div>
                     {item.dietary && item.dietary.length > 0 && (
@@ -540,7 +655,7 @@ function MainFeature({ defaultTab = 'menu' }) {
                         {item.dietary.map((diet) => (
                           <div
                             key={diet}
-                            className="w-8 h-8 bg-white/90 rounded-full flex items-center justify-center"
+                            className="w-8 h-8 bg-white/90 rounded-full flex items-center justify-center shadow-md"
                             title={diet.charAt(0).toUpperCase() + diet.slice(1)}
                           >
                             <ApperIcon 
@@ -551,19 +666,92 @@ function MainFeature({ defaultTab = 'menu' }) {
                         ))}
                       </div>
                     )}
+                    {/* Favorite indicator */}
+                    {isFavorite(item) && (
+                      <div className="absolute bottom-4 left-4 bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-lg">
+                        <ApperIcon name="Heart" className="w-4 h-4 fill-current" />
+                      </div>
+                    )}
                   </div>
                   
                   <div className="p-6">
-                    <h3 className="text-xl font-bold text-surface-900 dark:text-white mb-2 group-hover:text-primary transition-colors">
+                    <h3 className="text-xl font-bold text-surface-900 dark:text-white mb-2 group-hover:text-primary transition-colors cursor-pointer" onClick={() => setSelectedMenuItem(item)}>
                       {item.name}
                     </h3>
-                    <p className="text-surface-600 dark:text-surface-400 leading-relaxed">
+                    <p className="text-surface-600 dark:text-surface-400 leading-relaxed mb-4 line-clamp-2">
                       {item.description}
                     </p>
+                    
+                    {/* Ingredients preview */}
+                    <div className="mb-4">
+                      <p className="text-xs text-surface-500 dark:text-surface-400 mb-1">Key Ingredients:</p>
+                      <p className="text-sm text-surface-600 dark:text-surface-300 line-clamp-1">
+                        {item.ingredients.slice(0, 3).join(', ')}{item.ingredients.length > 3 && '...'}
+                      </p>
+                    </div>
+                    
+                    {/* Allergen warning */}
+                    {item.allergens && item.allergens.length > 0 && (
+                      <div className="mb-4 p-2 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800">
+                        <div className="flex items-center">
+                          <ApperIcon name="AlertTriangle" className="w-4 h-4 text-yellow-600 mr-2" />
+                          <span className="text-xs text-yellow-800 dark:text-yellow-200">
+                            Contains: {item.allergens.join(', ')}
+                          </span>
+                        </div>
+                      </div>
+                    )}
+                    
+                    {/* Action buttons */}
+                    <div className="flex space-x-2">
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          toggleFavorite(item)
+                        }}
+                        className={`flex-1 px-3 py-2 rounded-lg font-medium text-sm transition-all duration-300 flex items-center justify-center space-x-1 ${
+                          isFavorite(item)
+                            ? 'bg-red-500 text-white shadow-md'
+                            : 'border border-surface-300 dark:border-surface-600 text-surface-700 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-700'
+                        }`}
+                      >
+                        <ApperIcon name="Heart" className={`w-4 h-4 ${isFavorite(item) ? 'fill-current' : ''}`} />
+                        <span>{isFavorite(item) ? 'Favorited' : 'Favorite'}</span>
+                      </motion.button>
+                      
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          shareItem(item)
+                        }}
+                        className="flex-1 px-3 py-2 rounded-lg font-medium text-sm border border-surface-300 dark:border-surface-600 text-surface-700 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-700 transition-all duration-300 flex items-center justify-center space-x-1"
+                      >
+                        <ApperIcon name="Share2" className="w-4 h-4" />
+                        <span>Share</span>
+                      </motion.button>
+                      
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          addToCart(item)
+                        }}
+                        className="flex-1 px-3 py-2 rounded-lg font-medium text-sm bg-gradient-to-r from-primary to-primary-light text-white shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center space-x-1"
+                      >
+                        <ApperIcon name="ShoppingCart" className="w-4 h-4" />
+                        <span>Add</span>
+                      </motion.button>
+                    </div>
                   </div>
                 </motion.div>
               ))}
             </div>
+
           </motion.div>
         )}
 
@@ -1076,13 +1264,19 @@ function MainFeature({ defaultTab = 'menu' }) {
                 >
                   <ApperIcon name="X" className="w-5 h-5" />
                 </button>
-                <div className="absolute bottom-4 right-4 bg-primary text-white px-4 py-2 rounded-full font-bold text-lg">
+                <div className="absolute bottom-4 right-4 bg-primary text-white px-6 py-3 rounded-full font-bold text-2xl shadow-lg">
                   ${selectedMenuItem.price}
                 </div>
+                {/* Favorite indicator */}
+                {isFavorite(selectedMenuItem) && (
+                  <div className="absolute bottom-4 left-4 bg-red-500 text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg">
+                    <ApperIcon name="Heart" className="w-5 h-5 fill-current" />
+                  </div>
+                )}
               </div>
               
               <div className="p-8">
-                <div className="flex items-start justify-between mb-4">
+                <div className="flex items-start justify-between mb-6">
                   <h2 className="text-3xl font-bold text-surface-900 dark:text-white">
                     {selectedMenuItem.name}
                   </h2>
@@ -1091,14 +1285,14 @@ function MainFeature({ defaultTab = 'menu' }) {
                       {selectedMenuItem.dietary.map((diet) => (
                         <div
                           key={diet}
-                          className="flex items-center space-x-1 bg-surface-100 dark:bg-surface-700 px-2 py-1 rounded-full"
+                          className="flex items-center space-x-1 bg-surface-100 dark:bg-surface-700 px-3 py-1 rounded-full"
                         >
                           <ApperIcon 
                             name={getDietaryIcon(diet)} 
-                            className={`w-3 h-3 ${getDietaryColor(diet)}`}
+                            className={`w-4 h-4 ${getDietaryColor(diet)}`}
                           />
-                          <span className="text-xs font-medium text-surface-700 dark:text-surface-300 capitalize">
-                            {diet}
+                          <span className="text-sm font-medium text-surface-700 dark:text-surface-300 capitalize">
+                            {diet.replace('-', ' ')}
                           </span>
                         </div>
                       ))}
@@ -1106,23 +1300,110 @@ function MainFeature({ defaultTab = 'menu' }) {
                   )}
                 </div>
                 
-                <p className="text-surface-600 dark:text-surface-400 leading-relaxed mb-6">
+                <p className="text-surface-600 dark:text-surface-400 leading-relaxed mb-6 text-lg">
                   {selectedMenuItem.description}
                 </p>
                 
-                <div className="flex justify-center">
+                {/* Ingredients Section */}
+                <div className="mb-6">
+                  <h3 className="text-lg font-semibold text-surface-900 dark:text-white mb-3 flex items-center">
+                    <ApperIcon name="List" className="w-5 h-5 text-primary mr-2" />
+                    Ingredients
+                  </h3>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                    {selectedMenuItem.ingredients.map((ingredient, index) => (
+                      <div key={index} className="bg-surface-100 dark:bg-surface-700 px-3 py-2 rounded-lg text-sm text-surface-700 dark:text-surface-300">
+                        {ingredient}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Allergen Information */}
+                {selectedMenuItem.allergens && selectedMenuItem.allergens.length > 0 && (
+                  <div className="mb-6 p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-xl">
+                    <h3 className="text-lg font-semibold text-yellow-800 dark:text-yellow-200 mb-2 flex items-center">
+                      <ApperIcon name="AlertTriangle" className="w-5 h-5 mr-2" />
+                      Allergen Information
+                    </h3>
+                    <p className="text-yellow-700 dark:text-yellow-300">
+                      <strong>Contains:</strong> {selectedMenuItem.allergens.join(', ')}
+                    </p>
+                    <p className="text-xs text-yellow-600 dark:text-yellow-400 mt-1">
+                      Please inform your server of any allergies or dietary restrictions.
+                    </p>
+                  </div>
+                )}
+                
+                {/* Nutritional Highlights */}
+                {selectedMenuItem.nutritionalHighlights && selectedMenuItem.nutritionalHighlights.length > 0 && (
+                  <div className="mb-6">
+                    <h3 className="text-lg font-semibold text-surface-900 dark:text-white mb-3 flex items-center">
+                      <ApperIcon name="Heart" className="w-5 h-5 text-green-600 mr-2" />
+                      Nutritional Highlights
+                    </h3>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedMenuItem.nutritionalHighlights.map((highlight, index) => (
+                        <div key={index} className="bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200 px-3 py-1 rounded-full text-sm border border-green-200 dark:border-green-800">
+                          {highlight}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                
+                {/* Action Buttons */}
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => toggleFavorite(selectedMenuItem)}
+                    className={`flex-1 px-6 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center space-x-2 ${
+                      isFavorite(selectedMenuItem)
+                        ? 'bg-red-500 text-white shadow-lg'
+                        : 'border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white'
+                    }`}
+                  >
+                    <ApperIcon name="Heart" className={`w-5 h-5 ${isFavorite(selectedMenuItem) ? 'fill-current' : ''}`} />
+                    <span>{isFavorite(selectedMenuItem) ? 'Remove from Favorites' : 'Add to Favorites'}</span>
+                  </motion.button>
+                  
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => shareItem(selectedMenuItem)}
+                    className="flex-1 px-6 py-3 rounded-xl font-semibold border-2 border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white transition-all duration-300 flex items-center justify-center space-x-2"
+                  >
+                    <ApperIcon name="Share2" className="w-5 h-5" />
+                    <span>Share this Dish</span>
+                  </motion.button>
+                  
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => {
+                      addToCart(selectedMenuItem)
+                      setSelectedMenuItem(null)
+                    }}
+                    className="flex-1 px-6 py-3 rounded-xl font-semibold bg-gradient-to-r from-primary to-primary-light text-white shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2"
+                  >
+                    <ApperIcon name="ShoppingCart" className="w-5 h-5" />
+                    <span>Add to Cart</span>
+                  </motion.button>
+                </div>
+                
+                <div className="flex justify-center mt-6">
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setSelectedMenuItem(null)}
-                    className="px-6 py-3 border border-surface-300 dark:border-surface-600 text-surface-700 dark:text-surface-300 rounded-xl hover:bg-surface-100 dark:hover:bg-surface-700 transition-colors"
+                    className="px-6 py-2 border border-surface-300 dark:border-surface-600 text-surface-700 dark:text-surface-300 rounded-xl hover:bg-surface-100 dark:hover:bg-surface-700 transition-colors"
                   >
                     Close
                   </motion.button>
-                  
                 </div>
               </div>
-            </motion.div>
+
           </motion.div>
         )}
       </AnimatePresence>
@@ -1185,6 +1466,99 @@ function MainFeature({ defaultTab = 'menu' }) {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Share Modal */}
+      <AnimatePresence>
+        {showShareModal && shareItem && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            onClick={() => setShowShareModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="neu-card dark:neu-card-dark max-w-md w-full p-6 rounded-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="text-center mb-6">
+                <h3 className="text-xl font-bold text-surface-900 dark:text-white mb-2">
+                  Share "{shareItem.name}"
+                </h3>
+                <p className="text-surface-600 dark:text-surface-400 text-sm">
+                  Choose how you'd like to share this delicious dish
+                </p>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-3 mb-6">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => handleShare('facebook')}
+                  className="flex items-center justify-center space-x-2 bg-blue-600 text-white px-4 py-3 rounded-xl font-medium transition-colors hover:bg-blue-700"
+                >
+                  <ApperIcon name="Facebook" className="w-5 h-5" />
+                  <span>Facebook</span>
+                </motion.button>
+                
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => handleShare('twitter')}
+                  className="flex items-center justify-center space-x-2 bg-sky-500 text-white px-4 py-3 rounded-xl font-medium transition-colors hover:bg-sky-600"
+                >
+                  <ApperIcon name="Twitter" className="w-5 h-5" />
+                  <span>Twitter</span>
+                </motion.button>
+                
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => handleShare('whatsapp')}
+                  className="flex items-center justify-center space-x-2 bg-green-500 text-white px-4 py-3 rounded-xl font-medium transition-colors hover:bg-green-600"
+                >
+                  <ApperIcon name="MessageCircle" className="w-5 h-5" />
+                  <span>WhatsApp</span>
+                </motion.button>
+                
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => handleShare('email')}
+                  className="flex items-center justify-center space-x-2 bg-gray-600 text-white px-4 py-3 rounded-xl font-medium transition-colors hover:bg-gray-700"
+                >
+                  <ApperIcon name="Mail" className="w-5 h-5" />
+                  <span>Email</span>
+                </motion.button>
+              </div>
+              
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => handleShare('copy')}
+                className="w-full flex items-center justify-center space-x-2 border border-surface-300 dark:border-surface-600 text-surface-700 dark:text-surface-300 px-4 py-3 rounded-xl hover:bg-surface-100 dark:hover:bg-surface-700 transition-colors mb-3"
+              >
+                <ApperIcon name="Copy" className="w-5 h-5" />
+                <span>Copy Link</span>
+              </motion.button>
+              
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => setShowShareModal(false)}
+                className="w-full px-4 py-2 text-surface-600 dark:text-surface-400 hover:text-surface-800 dark:hover:text-surface-200 transition-colors"
+              >
+                Cancel
+              </motion.button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+
 
     </div>
   )
