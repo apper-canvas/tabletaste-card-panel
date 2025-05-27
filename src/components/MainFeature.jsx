@@ -766,18 +766,14 @@ function MainFeature({ defaultTab = 'menu' }) {
                   {selectedMenuItem.description}
                 </p>
                 
-                <div className="flex space-x-4">
+                <div className="flex justify-center">
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={() => {
-                      setSelectedMenuItem(null)
-                      setActiveTab('reservations')
-                    }}
-                    className="flex-1 bg-gradient-to-r from-primary to-primary-light text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2"
+                    onClick={() => setSelectedMenuItem(null)}
+                    className="px-6 py-3 border border-surface-300 dark:border-surface-600 text-surface-700 dark:text-surface-300 rounded-xl hover:bg-surface-100 dark:hover:bg-surface-700 transition-colors"
                   >
-                    <ApperIcon name="Calendar" className="w-5 h-5" />
-                    <span>Make Reservation</span>
+                    Close
                   </motion.button>
                   
                   <motion.button
