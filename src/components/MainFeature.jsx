@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { addToCart } from '../store/cartSlice'
+
 
 import { motion, AnimatePresence } from 'framer-motion'
 import { toast } from 'react-toastify'
@@ -155,6 +158,8 @@ const StarRating = ({ rating, onRatingChange, hoverRating, onHoverChange, readon
 }
 
 const MainFeature = React.forwardRef(function MainFeature({ defaultTab = 'menu' }, ref) {
+  const dispatch = useDispatch()
+
 
   const [activeTab, setActiveTab] = useState(defaultTab)
 
@@ -514,20 +519,17 @@ const MainFeature = React.forwardRef(function MainFeature({ defaultTab = 'menu' 
     }
   }
 
-  const addToCart = (item, quantity = 1) => {
-    const existingItem = cart.find(cartItem => cartItem.id === item.id)
-    if (existingItem) {
-      setCart(cart.map(cartItem => 
-        cartItem.id === item.id 
-          ? { ...cartItem, quantity: cartItem.quantity + quantity }
-          : cartItem
-      ))
-      toast.success(`${item.name} quantity updated in cart!`)
-    } else {
-      setCart([...cart, { ...item, quantity }])
-      toast.success(`${item.name} added to cart!`)
-    }
+  const handleAddToCart = (item, quantity = 1) => {
+    dispatch(addToCart({
+      id: item.id,
+      name: item.name,
+      price: item.price,
+      image: item.image,
+      description: item.description
+    }))
+    toast.success(`${item.name} added to cart!`)
   }
+
 
 
   const handleShare = (platform) => {
@@ -740,8 +742,9 @@ const MainFeature = React.forwardRef(function MainFeature({ defaultTab = 'menu' 
                         whileTap={{ scale: 0.95 }}
                         onClick={(e) => {
                           e.stopPropagation()
-                          addToCart(item)
+                          handleAddToCart(item)
                         }}
+
                         className="flex-1 px-3 py-2 rounded-lg font-medium text-sm bg-gradient-to-r from-primary to-primary-light text-white shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center space-x-1"
                       >
                         <ApperIcon name="ShoppingCart" className="w-4 h-4" />
@@ -1387,9 +1390,10 @@ const MainFeature = React.forwardRef(function MainFeature({ defaultTab = 'menu' 
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => {
-                      addToCart(selectedMenuItem)
+                      handleAddToCart(selectedMenuItem)
                       setSelectedMenuItem(null)
                     }}
+
                     className="flex-1 px-6 py-3 rounded-xl font-semibold bg-gradient-to-r from-primary to-primary-light text-white shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2"
                   >
                     <ApperIcon name="ShoppingCart" className="w-5 h-5" />

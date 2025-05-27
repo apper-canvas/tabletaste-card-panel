@@ -7,6 +7,9 @@ import Home from './pages/Home'
 import Menu from './pages/Menu'
 import Reservations from './pages/Reservations'
 import Reviews from './pages/Reviews'
+import Cart from './pages/Cart'
+import CartSidebar from './components/CartSidebar'
+
 import Contact from './pages/Contact'
 
 import NotFound from './pages/NotFound'
@@ -64,6 +67,8 @@ function App() {
         <Route path="/menu" element={<Menu />} />
         <Route path="/reservations" element={<Reservations />} />
         <Route path="/reviews" element={<Reviews />} />
+        <Route path="/cart" element={<Cart />} />
+
         <Route path="/contact" element={<Contact />} />
 
       </Routes>
@@ -80,6 +85,10 @@ function App() {
         pauseOnHover
         theme="light"
         className="z-50"
+      
+      {/* Cart Sidebar */}
+      <CartSidebar />
+
       />
     </div>
   )

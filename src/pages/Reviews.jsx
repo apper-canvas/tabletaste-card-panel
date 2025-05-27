@@ -1,8 +1,13 @@
 import { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { selectCartItemCount, toggleCartSidebar } from '../store/cartSlice'
+
 import { motion, AnimatePresence } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import ApperIcon from '../components/ApperIcon'
+import CartSidebar from '../components/CartSidebar'
+
 import MainFeature from '../components/MainFeature'
 
 const navItems = [
@@ -12,6 +17,33 @@ const navItems = [
   { id: 'reviews', label: 'Reviews', icon: 'Star' },
   { id: 'contact', label: 'Contact', icon: 'MapPin' }
 ]
+
+function CartButton() {
+  const dispatch = useDispatch()
+  const itemCount = useSelector(selectCartItemCount)
+  
+  if (itemCount === 0) return null
+  
+  return (
+    <motion.button
+      whileTap={{ scale: 0.95 }}
+      onClick={() => dispatch(toggleCartSidebar())}
+      className="relative p-2 rounded-xl bg-surface-100 dark:bg-surface-800 text-surface-700 dark:text-surface-300 hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors"
+    >
+      <ApperIcon name="ShoppingCart" className="w-5 h-5" />
+      {itemCount > 0 && (
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          className="absolute -top-1 -right-1 bg-primary text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center min-w-[20px]"
+        >
+          {itemCount > 99 ? '99+' : itemCount}
+        </motion.div>
+      )}
+    </motion.button>
+  )
+}
+
 
 function Reviews() {
   const [activeSection, setActiveSection] = useState('reviews')
@@ -98,6 +130,9 @@ function Reviews() {
 
           {/* Mobile Navigation */}
           <AnimatePresence>
+              
+              <CartButton />
+
             {isMenuOpen && (
               <motion.div
                 initial={{ height: 0, opacity: 0 }}
@@ -176,6 +211,10 @@ function Reviews() {
         </div>
       </footer>
     </div>
+      
+      {/* Cart Sidebar */}
+      <CartSidebar />
+
   )
 }
 

@@ -1,8 +1,13 @@
 import { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { selectCartItemCount, toggleCartSidebar } from '../store/cartSlice'
+
 import { motion, AnimatePresence } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import ApperIcon from '../components/ApperIcon'
+import CartSidebar from '../components/CartSidebar'
+
 import MainFeature from '../components/MainFeature'
 
 const navItems = [
@@ -14,20 +19,16 @@ const navItems = [
 ]
 
 
-function CartButton({ cartItems = [] }) {
-  const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0)
-  
-  const handleCartClick = () => {
-    toast.info('Cart functionality - showing cart with ' + itemCount + ' items')
-    // Future: Open cart modal or navigate to cart page
-  }
+function CartButton() {
+  const dispatch = useDispatch()
+  const itemCount = useSelector(selectCartItemCount)
   
   if (itemCount === 0) return null
   
   return (
     <motion.button
       whileTap={{ scale: 0.95 }}
-      onClick={handleCartClick}
+      onClick={() => dispatch(toggleCartSidebar())}
       className="relative p-2 rounded-xl bg-surface-100 dark:bg-surface-800 text-surface-700 dark:text-surface-300 hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors"
     >
       <ApperIcon name="ShoppingCart" className="w-5 h-5" />
@@ -45,30 +46,27 @@ function CartButton({ cartItems = [] }) {
 }
 
 
-function Menu() {
-  const [cart, setCart] = useState(() => {
-    const saved = localStorage.getItem('tabletaste-cart')
-    return saved ? JSON.parse(saved) : []
-  })
 
-  // Listen for cart updates from localStorage
-  useEffect(() => {
-    const handleStorageChange = () => {
-      const saved = localStorage.getItem('tabletaste-cart')
-      setCart(saved ? JSON.parse(saved) : [])
+function Menu() {
+  const [activeSection, setActiveSection] = useState('menu')
+  const [isDarkMode, setIsDarkMode] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const navigate = useNavigate()
+
+  const handleNavigation = (sectionId) => {
+    if (sectionId === 'hero') {
+      navigate('/')
+    } else {
+      navigate(`/${sectionId}`)
     }
-    
-    // Listen for storage changes
-    window.addEventListener('storage', handleStorageChange)
-    
-    // Poll for changes every 1000ms as fallback
-    const interval = setInterval(handleStorageChange, 1000)
-    
-    return () => {
-      window.removeEventListener('storage', handleStorageChange)
-      clearInterval(interval)
-    }
-  }, [])
+    setIsMenuOpen(false)
+  }
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode)
+    document.documentElement.classList.toggle('dark')
+  }
+
 
 
   const [activeSection, setActiveSection] = useState('menu')
@@ -132,7 +130,8 @@ function Menu() {
                 </motion.button>
               ))}
               
-              <CartButton cartItems={cart} />
+              <CartButton />
+
 
             </div>
 
@@ -241,6 +240,10 @@ function Menu() {
               </p>
             </div>
           </div>
+      
+      {/* Cart Sidebar */}
+      <CartSidebar />
+
         </div>
       </footer>
     </div>
