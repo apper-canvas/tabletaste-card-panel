@@ -47,6 +47,6 @@ export default {
       }
     }
   },
-  plugins: [],
   darkMode: 'class',
+  plugins: []
 }

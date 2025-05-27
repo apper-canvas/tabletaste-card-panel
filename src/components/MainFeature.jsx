@@ -167,20 +167,40 @@ function MainFeature() {
     }
   ])
 
-  useEffect(() => {
-    // Simulate different availability based on selected date
-    if (selectedDate) {
-      const date = new Date(selectedDate)
-      if (date.getDay() === 5 || date.getDay() === 6) { // Friday or Saturday
-        setAvailableTimes(timeSlots.filter((_, index) => index % 2 === 0)) // Limited slots
-      } else {
-        setAvailableTimes(timeSlots)
-      }
+  // Error boundary state
+  const [componentError, setComponentError] = useState(null)
+
+  // Safe error handling wrapper
+  const safeExecute = (fn, fallback = null) => {
+    try {
+      return fn()
+    } catch (error) {
+      console.warn('Safe execution error:', error)
+      setComponentError(error.message)
+      return fallback
     }
-  }, [selectedDate])
+  }
+
+
 
   const tabs = [
     { id: 'menu', label: 'Menu', icon: 'UtensilsCrossed' },
+  useEffect(() => {
+    // Simulate different availability based on selected date
+    if (selectedDate) {
+      safeExecute(() => {
+        const date = new Date(selectedDate)
+        if (date && !isNaN(date.getTime())) {
+          if (date.getDay() === 5 || date.getDay() === 6) { // Friday or Saturday
+            setAvailableTimes(timeSlots.filter((_, index) => index % 2 === 0)) // Limited slots
+          } else {
+            setAvailableTimes(timeSlots)
+          }
+        }
+      })
+    }
+  }, [selectedDate])
+
     { id: 'reservations', label: 'Reservations', icon: 'Calendar' },
     { id: 'reviews', label: 'Reviews', icon: 'Star' }
   ]
@@ -193,20 +213,29 @@ function MainFeature() {
     }
 
     // Simulate API call
-    setTimeout(() => {
-      toast.success(`Reservation confirmed for ${reservationForm.customerName} on ${format(new Date(selectedDate), 'MMMM d, yyyy')} at ${selectedTime}`)
-      setReservationForm({
-        customerName: '',
-        email: '',
-        phone: '',
-        date: '',
-        time: '',
-        partySize: 2,
-        specialRequests: ''
-      })
-      setSelectedDate('')
-      setSelectedTime('')
-    }, 1000)
+    safeExecute(() => {
+      setTimeout(() => {
+        if (selectedDate && reservationForm.customerName) {
+          const formattedDate = safeExecute(
+            () => format(new Date(selectedDate), 'MMMM d, yyyy'),
+            selectedDate
+          )
+          toast.success(`Reservation confirmed for ${reservationForm.customerName} on ${formattedDate} at ${selectedTime}`)
+          setReservationForm({
+            customerName: '',
+            email: '',
+            phone: '',
+            date: '',
+            time: '',
+            partySize: 2,
+            specialRequests: ''
+          })
+          setSelectedDate('')
+          setSelectedTime('')
+        }
+      }, 1000)
+    })
+
   }
 
   const handleReviewSubmit = (e) => {
@@ -234,10 +263,14 @@ function MainFeature() {
   }
 
   const formatDate = (date) => {
-    if (isToday(date)) return 'Today'
-    if (isTomorrow(date)) return 'Tomorrow'
-    return format(date, 'MMM d')
+    return safeExecute(() => {
+      if (!date || isNaN(new Date(date).getTime())) return 'Invalid Date'
+      if (isToday(date)) return 'Today'
+      if (isTomorrow(date)) return 'Tomorrow'
+      return format(date, 'MMM d')
+    }, 'Date')
   }
+
 
   const getDietaryBadgeColor = (dietary) => {
     switch (dietary) {
@@ -246,6 +279,30 @@ function MainFeature() {
       case 'gluten-free': return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
       default: return 'bg-surface-100 text-surface-800 dark:bg-surface-700 dark:text-surface-200'
     }
+  }
+
+
+  // Component error display
+  if (componentError) {
+    return (
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center py-12">
+          <div className="bg-red-50 border border-red-200 rounded-lg p-6 max-w-md mx-auto">
+            <h3 className="text-lg font-semibold text-red-800 mb-2">Component Error</h3>
+            <p className="text-red-600 mb-4">{componentError}</p>
+            <button 
+              onClick={() => {
+                setComponentError(null)
+                window.location.reload()
+              }}
+              className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
+            >
+              Reload Component
+            </button>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -461,9 +518,12 @@ function MainFeature() {
                     Select Date *
                   </label>
                   <div className="grid grid-cols-4 sm:grid-cols-7 gap-2">
+                  <div className="grid grid-cols-4 sm:grid-cols-7 gap-2">
                     {[...Array(14)].map((_, index) => {
                       const date = addDays(new Date(), index)
-                      const dateStr = format(date, 'yyyy-MM-dd')
+                      const dateStr = safeExecute(() => format(date, 'yyyy-MM-dd'), '')
+                      if (!dateStr) return null
+                      
                       return (
                         <motion.button
                           key={dateStr}
@@ -481,11 +541,13 @@ function MainFeature() {
                             {formatDate(date)}
                           </div>
                           <div className="text-lg font-bold">
-                            {format(date, 'd')}
+                            {safeExecute(() => format(date, 'd'), index + 1)}
                           </div>
                         </motion.button>
                       )
-                    })}
+                    }).filter(Boolean)}
+                  </div>
+
                   </div>
                 </div>
 
@@ -672,8 +734,9 @@ function MainFeature() {
                           </div>
                         </div>
                         <span className="text-sm text-surface-500 dark:text-surface-400">
-                          {format(review.date, 'MMM d, yyyy')}
+                          {safeExecute(() => format(review.date, 'MMM d, yyyy'), 'Recent')}
                         </span>
+
                       </div>
                       <p className="text-surface-700 dark:text-surface-300">
                         {review.comment}
