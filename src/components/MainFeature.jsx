@@ -687,6 +687,8 @@ function MainFeature() {
                         </div>
                       </div>
                     </div>
+                  </div>
+
 
 
                   </motion.div>
@@ -1169,6 +1171,8 @@ function MainFeature() {
                   </motion.button>
 
                 </div>
+              </div>
+
 
             </motion.div>
           </motion.div>
