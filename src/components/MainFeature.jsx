@@ -125,8 +125,9 @@ const StarRating = ({ rating, onRatingChange, hoverRating, onHoverChange, readon
   )
 }
 
-function MainFeature() {
-  const [activeTab, setActiveTab] = useState('menu')
+function MainFeature({ defaultTab = 'menu' }) {
+  const [activeTab, setActiveTab] = useState(defaultTab)
+
   const [selectedCategory, setSelectedCategory] = useState('appetizers')
   const [selectedMenuItem, setSelectedMenuItem] = useState(null)
   const [reservationForm, setReservationForm] = useState({
@@ -178,6 +179,12 @@ function MainFeature() {
       verified: true
     }
   ])
+
+  // Update activeTab when defaultTab prop changes
+  useEffect(() => {
+    setActiveTab(defaultTab)
+  }, [defaultTab])
+
 
   const tabs = [
     { id: 'menu', label: 'Menu', icon: 'UtensilsCrossed' },

@@ -264,10 +264,59 @@ function Home() {
         </motion.div>
       </section>
 
-      {/* Main Features Section */}
+      {/* Main Features Section - Menu Focus */}
       <section id="menu" className="py-16 md:py-24">
-        <MainFeature />
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div id="menuFeature">
+            <MainFeature defaultTab="menu" />
+          </div>
+        </div>
       </section>
+
+      {/* Reservations Section */}
+      <section id="reservations" className="py-16 md:py-24 bg-surface-50 dark:bg-surface-900">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-surface-900 dark:text-white mb-6">
+              Make a Reservation
+            </h2>
+            <p className="text-xl text-surface-600 dark:text-surface-300 max-w-3xl mx-auto">
+              Reserve your table for an unforgettable dining experience
+            </p>
+          </motion.div>
+          <div id="reservationFeature">
+            <MainFeature defaultTab="reservations" />
+          </div>
+        </div>
+      </section>
+
+      {/* Reviews Section */}
+      <section id="reviews" className="py-16 md:py-24">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-surface-900 dark:text-white mb-6">
+              Customer Reviews
+            </h2>
+            <p className="text-xl text-surface-600 dark:text-surface-300 max-w-3xl mx-auto">
+              See what our guests are saying about their TableTaste experience
+            </p>
+          </motion.div>
+          <div id="reviewsFeature">
+            <MainFeature defaultTab="reviews" />
+          </div>
+        </div>
+      </section>
+
 
       {/* Contact Section */}
       <section id="contact" className="py-16 md:py-24 bg-surface-100 dark:bg-surface-800">
