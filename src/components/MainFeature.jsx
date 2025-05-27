@@ -489,7 +489,6 @@ function MainFeature({ defaultTab = 'menu' }) {
       }
     }
     return slots
-
   // Save favorites to localStorage whenever it changes
   useEffect(() => {
     localStorage.setItem('tabletaste-favorites', JSON.stringify(favorites))
