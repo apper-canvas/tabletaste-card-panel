@@ -214,8 +214,9 @@ function Reviews() {
             </div>
           </div>
         </div>
-      
       </footer>
     </div>
+  )
+}
 
 export default Reviews
