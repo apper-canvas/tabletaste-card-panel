@@ -118,6 +118,8 @@ function Reviews() {
                 <ApperIcon name={isDarkMode ? "Sun" : "Moon"} className="w-5 h-5" />
               </motion.button>
 
+              <CartButton />
+
               <motion.button
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -131,7 +133,6 @@ function Reviews() {
           {/* Mobile Navigation */}
           <AnimatePresence>
               
-              <CartButton />
 
             {isMenuOpen && (
               <motion.div
