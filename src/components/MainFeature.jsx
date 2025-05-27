@@ -417,7 +417,6 @@ function MainFeature({ defaultTab = 'menu' }) {
     setActiveTab('manage-reservations')
   }
 
-  }
 
   const getDietaryIcon = (dietary) => {
     const icons = {
@@ -575,7 +574,14 @@ function MainFeature({ defaultTab = 'menu' }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            <div className="neu-card dark:neu-card-dark p-8 rounded-2xl">
+          >
+            <motion.div
+              key="reservations"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+
 
             className="max-w-2xl mx-auto"
           >
@@ -714,9 +720,8 @@ function MainFeature({ defaultTab = 'menu' }) {
                   type="submit"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full bg-gradient-to-r from-primary to-primary-light text-white font-semibold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2"
-                >
-                  <ApperIcon name="Calendar" className="w-5 h-5" />
+                  <span>{isModifying ? 'Update Reservation' : 'Submit Reservation'}</span>
+                </motion.button>
 
               </form>
               
@@ -746,6 +751,8 @@ function MainFeature({ defaultTab = 'menu' }) {
                 </motion.button>
               )}
             </div>
+          </motion.div>
+
           </motion.div>
         )}
 
