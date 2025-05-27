@@ -130,6 +130,40 @@ function MainFeature({ defaultTab = 'menu' }) {
 
   const [selectedCategory, setSelectedCategory] = useState('appetizers')
   const [selectedMenuItem, setSelectedMenuItem] = useState(null)
+  const [lookupForm, setLookupForm] = useState({
+    confirmationNumber: '',
+    email: ''
+  })
+  const [foundReservation, setFoundReservation] = useState(null)
+  const [isModifying, setIsModifying] = useState(false)
+  const [showCancelDialog, setShowCancelDialog] = useState(false)
+  const [mockReservations] = useState([
+    {
+      id: 'RES-2024-001',
+      confirmationNumber: 'TT2024001',
+      name: 'John Smith',
+      email: 'john.smith@example.com',
+      phone: '(555) 123-4567',
+      date: '2024-02-15',
+      time: '19:00',
+      guests: '4',
+      specialRequests: 'Anniversary dinner, window table if possible',
+      status: 'confirmed'
+    },
+    {
+      id: 'RES-2024-002',
+      confirmationNumber: 'TT2024002',
+      name: 'Sarah Johnson',
+      email: 'sarah.j@example.com',
+      phone: '(555) 987-6543',
+      date: '2024-02-20',
+      time: '18:30',
+      guests: '2',
+      specialRequests: 'Vegetarian options preferred',
+      status: 'confirmed'
+    }
+  ])
+
   const [reservationForm, setReservationForm] = useState({
     name: '',
     email: '',
@@ -188,9 +222,11 @@ function MainFeature({ defaultTab = 'menu' }) {
 
   const tabs = [
     { id: 'menu', label: 'Menu', icon: 'UtensilsCrossed' },
-    { id: 'reservations', label: 'Reservations', icon: 'Calendar' },
+    { id: 'reservations', label: 'New Reservation', icon: 'Calendar' },
+    { id: 'manage-reservations', label: 'Manage Reservations', icon: 'Settings' },
     { id: 'reviews', label: 'Reviews', icon: 'Star' }
   ]
+
 
   const categories = [
     { id: 'appetizers', label: 'Appetizers', icon: 'Soup' },
@@ -200,6 +236,11 @@ function MainFeature({ defaultTab = 'menu' }) {
 
   const handleReservationSubmit = (e) => {
     e.preventDefault()
+    
+    if (isModifying) {
+      handleModifiedReservationSubmit(e)
+      return
+    }
     
     // Validation
     if (!reservationForm.name || !reservationForm.email || !reservationForm.phone || 
@@ -239,6 +280,7 @@ function MainFeature({ defaultTab = 'menu' }) {
     })
   }
 
+
   const handleReviewSubmit = (e) => {
     e.preventDefault()
     
@@ -273,6 +315,106 @@ function MainFeature({ defaultTab = 'menu' }) {
       comment: ''
     })
     setHoverRating(0)
+
+  const handleLookupSubmit = (e) => {
+    e.preventDefault()
+    
+    if (!lookupForm.confirmationNumber && !lookupForm.email) {
+      toast.error('Please provide either confirmation number or email address')
+      return
+    }
+
+    // Find reservation
+    const reservation = mockReservations.find(res => 
+      (lookupForm.confirmationNumber && res.confirmationNumber.toLowerCase() === lookupForm.confirmationNumber.toLowerCase()) ||
+      (lookupForm.email && res.email.toLowerCase() === lookupForm.email.toLowerCase())
+    )
+
+    if (reservation) {
+      setFoundReservation(reservation)
+      toast.success('Reservation found successfully!')
+    } else {
+      toast.error('No reservation found with the provided information')
+      setFoundReservation(null)
+    }
+
+    // Reset lookup form
+    setLookupForm({
+      confirmationNumber: '',
+      email: ''
+    })
+  }
+
+  const handleCancelReservation = () => {
+    if (foundReservation) {
+      toast.success(`Reservation ${foundReservation.confirmationNumber} has been cancelled successfully`)
+      setFoundReservation(null)
+      setShowCancelDialog(false)
+    }
+  }
+
+  const handleModifyReservation = () => {
+    if (foundReservation) {
+      // Pre-fill the reservation form with existing data
+      setReservationForm({
+        name: foundReservation.name,
+        email: foundReservation.email,
+        phone: foundReservation.phone,
+        date: foundReservation.date,
+        time: foundReservation.time,
+        guests: foundReservation.guests,
+        specialRequests: foundReservation.specialRequests
+      })
+      setIsModifying(true)
+      setActiveTab('reservations')
+      toast.info('Reservation details loaded for modification')
+    }
+  }
+
+  const handleModifiedReservationSubmit = (e) => {
+    e.preventDefault()
+    
+    // Validation (same as regular reservation)
+    if (!reservationForm.name || !reservationForm.email || !reservationForm.phone || 
+        !reservationForm.date || !reservationForm.time || !reservationForm.guests) {
+      toast.error('Please fill in all required fields')
+      return
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(reservationForm.email)) {
+      toast.error('Please enter a valid email address')
+      return
+    }
+
+    // Date validation
+    const selectedDate = new Date(reservationForm.date)
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+    
+    if (selectedDate < today) {
+      toast.error('Please select a future date')
+      return
+    }
+
+    toast.success(`Reservation ${foundReservation.confirmationNumber} has been updated successfully!`)
+    
+    // Reset forms and states
+    setReservationForm({
+      name: '',
+      email: '',
+      phone: '',
+      date: '',
+      time: '',
+      guests: '2',
+      specialRequests: ''
+    })
+    setIsModifying(false)
+    setFoundReservation(null)
+    setActiveTab('manage-reservations')
+  }
+
   }
 
   const getDietaryIcon = (dietary) => {
@@ -433,7 +575,21 @@ function MainFeature({ defaultTab = 'menu' }) {
             transition={{ duration: 0.3 }}
             className="max-w-2xl mx-auto"
           >
-            <div className="neu-card dark:neu-card-dark p-8 rounded-2xl">
+                </p>
+              </div>
+              
+              {isModifying && (
+                <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 p-4 rounded-xl mb-6">
+                  <div className="flex items-center">
+                    <ApperIcon name="Info" className="w-5 h-5 text-blue-600 mr-2" />
+                    <span className="text-blue-800 dark:text-blue-200 font-medium">
+                      Modifying reservation: {foundReservation?.confirmationNumber}
+                    </span>
+                  </div>
+                </div>
+              )}
+
+
               <div className="text-center mb-8">
                 <h2 className="text-3xl font-bold text-surface-900 dark:text-white mb-4">
                   Reserve Your Table
@@ -558,12 +714,198 @@ function MainFeature({ defaultTab = 'menu' }) {
                   whileTap={{ scale: 0.98 }}
                   className="w-full bg-gradient-to-r from-primary to-primary-light text-white font-semibold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2"
                 >
-                  <ApperIcon name="Calendar" className="w-5 h-5" />
+                  <span>{isModifying ? 'Update Reservation' : 'Submit Reservation Request'}</span>
+
                   <span>Submit Reservation Request</span>
                 </motion.button>
               </form>
+              
+              {isModifying && (
+                <motion.button
+                  type="button"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => {
+                    setIsModifying(false)
+                    setFoundReservation(null)
+                    setReservationForm({
+                      name: '',
+                      email: '',
+                      phone: '',
+                      date: '',
+                      time: '',
+                      guests: '2',
+                      specialRequests: ''
+                    })
+                    setActiveTab('manage-reservations')
+                  }}
+                  className="w-full mt-4 border border-surface-300 dark:border-surface-600 text-surface-700 dark:text-surface-300 font-medium py-3 px-6 rounded-xl hover:bg-surface-100 dark:hover:bg-surface-700 transition-all duration-300 flex items-center justify-center space-x-2"
+                >
+                  <ApperIcon name="ArrowLeft" className="w-5 h-5" />
+                  <span>Cancel Modification</span>
+                </motion.button>
+              )}
+
             </div>
           </motion.div>
+
+        {activeTab === 'manage-reservations' && (
+          <motion.div
+            key="manage-reservations"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="max-w-2xl mx-auto"
+          >
+            <div className="neu-card dark:neu-card-dark p-8 rounded-2xl">
+              <div className="text-center mb-8">
+                <h2 className="text-3xl font-bold text-surface-900 dark:text-white mb-4">
+                  Manage Your Reservation
+                </h2>
+                <p className="text-surface-600 dark:text-surface-400">
+                  Look up your existing reservation to modify or cancel it.
+                </p>
+              </div>
+
+              {!foundReservation ? (
+                <form onSubmit={handleLookupSubmit} className="space-y-6">
+                  <div>
+                    <label className="block text-sm font-medium text-surface-900 dark:text-white mb-2">
+                      Confirmation Number
+                    </label>
+                    <input
+                      type="text"
+                      value={lookupForm.confirmationNumber}
+                      onChange={(e) => setLookupForm({...lookupForm, confirmationNumber: e.target.value})}
+                      className="w-full px-4 py-3 rounded-xl border border-surface-300 dark:border-surface-600 bg-white dark:bg-surface-800 text-surface-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                      placeholder="e.g., TT2024001"
+                    />
+                  </div>
+                  
+                  <div className="text-center text-surface-500 dark:text-surface-400">
+                    - OR -
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-surface-900 dark:text-white mb-2">
+                      Email Address
+                    </label>
+                    <input
+                      type="email"
+                      value={lookupForm.email}
+                      onChange={(e) => setLookupForm({...lookupForm, email: e.target.value})}
+                      className="w-full px-4 py-3 rounded-xl border border-surface-300 dark:border-surface-600 bg-white dark:bg-surface-800 text-surface-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                      placeholder="your@email.com"
+                    />
+                  </div>
+
+                  <motion.button
+                    type="submit"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="w-full bg-gradient-to-r from-primary to-primary-light text-white font-semibold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2"
+                  >
+                    <ApperIcon name="Search" className="w-5 h-5" />
+                    <span>Find Reservation</span>
+                  </motion.button>
+                  
+                  <div className="bg-surface-100 dark:bg-surface-700 p-4 rounded-xl">
+                    <h4 className="font-semibold text-surface-900 dark:text-white mb-2">Demo Reservations:</h4>
+                    <div className="text-sm text-surface-600 dark:text-surface-400 space-y-1">
+                      <p>• Confirmation: TT2024001 | Email: john.smith@example.com</p>
+                      <p>• Confirmation: TT2024002 | Email: sarah.j@example.com</p>
+                    </div>
+                  </div>
+                </form>
+              ) : (
+                <div className="space-y-6">
+                  <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 p-6 rounded-xl">
+                    <div className="flex items-center mb-4">
+                      <ApperIcon name="CheckCircle" className="w-6 h-6 text-green-600 mr-3" />
+                      <h3 className="text-xl font-semibold text-green-800 dark:text-green-200">
+                        Reservation Found
+                      </h3>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                      <div>
+                        <span className="font-medium text-surface-900 dark:text-white">Confirmation:</span>
+                        <span className="ml-2 text-surface-700 dark:text-surface-300">{foundReservation.confirmationNumber}</span>
+                      </div>
+                      <div>
+                        <span className="font-medium text-surface-900 dark:text-white">Name:</span>
+                        <span className="ml-2 text-surface-700 dark:text-surface-300">{foundReservation.name}</span>
+                      </div>
+                      <div>
+                        <span className="font-medium text-surface-900 dark:text-white">Date:</span>
+                        <span className="ml-2 text-surface-700 dark:text-surface-300">{formatDate(foundReservation.date)}</span>
+                      </div>
+                      <div>
+                        <span className="font-medium text-surface-900 dark:text-white">Time:</span>
+                        <span className="ml-2 text-surface-700 dark:text-surface-300">
+                          {new Date(`2000-01-01T${foundReservation.time}:00`).toLocaleTimeString('en-US', {
+                            hour: 'numeric',
+                            minute: '2-digit',
+                            hour12: true
+                          })}
+                        </span>
+                      </div>
+                      <div>
+                        <span className="font-medium text-surface-900 dark:text-white">Guests:</span>
+                        <span className="ml-2 text-surface-700 dark:text-surface-300">{foundReservation.guests}</span>
+                      </div>
+                      <div>
+                        <span className="font-medium text-surface-900 dark:text-white">Phone:</span>
+                        <span className="ml-2 text-surface-700 dark:text-surface-300">{foundReservation.phone}</span>
+                      </div>
+                    </div>
+                    
+                    {foundReservation.specialRequests && (
+                      <div className="mt-4">
+                        <span className="font-medium text-surface-900 dark:text-white">Special Requests:</span>
+                        <p className="text-surface-700 dark:text-surface-300 mt-1">{foundReservation.specialRequests}</p>
+                      </div>
+                    )}
+                  </div>
+                  
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={handleModifyReservation}
+                      className="flex-1 bg-gradient-to-r from-primary to-primary-light text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2"
+                    >
+                      <ApperIcon name="Edit" className="w-5 h-5" />
+                      <span>Modify Reservation</span>
+                    </motion.button>
+                    
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => setShowCancelDialog(true)}
+                      className="flex-1 bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2"
+                    >
+                      <ApperIcon name="X" className="w-5 h-5" />
+                      <span>Cancel Reservation</span>
+                    </motion.button>
+                  </div>
+                  
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => setFoundReservation(null)}
+                    className="w-full border border-surface-300 dark:border-surface-600 text-surface-700 dark:text-surface-300 font-medium py-3 px-6 rounded-xl hover:bg-surface-100 dark:hover:bg-surface-700 transition-all duration-300 flex items-center justify-center space-x-2"
+                  >
+                    <ApperIcon name="ArrowLeft" className="w-5 h-5" />
+                    <span>Look Up Another Reservation</span>
+                  </motion.button>
+                </div>
+              )}
+            </div>
+          </motion.div>
+        )}
+
         )}
 
         {activeTab === 'reviews' && (
@@ -789,6 +1131,66 @@ function MainFeature({ defaultTab = 'menu' }) {
             </motion.div>
           </motion.div>
         )}
+
+      {/* Cancel Confirmation Dialog */}
+      <AnimatePresence>
+        {showCancelDialog && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            onClick={() => setShowCancelDialog(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="neu-card dark:neu-card-dark max-w-md w-full p-6 rounded-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="text-center">
+                <div className="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <ApperIcon name="AlertTriangle" className="w-8 h-8 text-red-600" />
+                </div>
+                
+                <h3 className="text-xl font-bold text-surface-900 dark:text-white mb-2">
+                  Cancel Reservation
+                </h3>
+                
+                <p className="text-surface-600 dark:text-surface-400 mb-6">
+                  Are you sure you want to cancel your reservation for {formatDate(foundReservation?.date)} at {foundReservation && new Date(`2000-01-01T${foundReservation.time}:00`).toLocaleTimeString('en-US', {
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    hour12: true
+                  })}? This action cannot be undone.
+                </p>
+                
+                <div className="flex space-x-3">
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => setShowCancelDialog(false)}
+                    className="flex-1 px-4 py-2 border border-surface-300 dark:border-surface-600 text-surface-700 dark:text-surface-300 rounded-xl hover:bg-surface-100 dark:hover:bg-surface-700 transition-colors"
+                  >
+                    Keep Reservation
+                  </motion.button>
+                  
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={handleCancelReservation}
+                    className="flex-1 px-4 py-2 bg-red-600 text-white rounded-xl hover:bg-red-700 transition-colors"
+                  >
+                    Yes, Cancel
+                  </motion.button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       </AnimatePresence>
     </div>
   )
