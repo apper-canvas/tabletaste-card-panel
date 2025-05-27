@@ -747,10 +747,9 @@ function MainFeature({ defaultTab = 'menu' }) {
                 </motion.button>
               )}
           </motion.div>
+        )}
 
-
-
-
+        {activeTab === 'manage-reservations' && (
           <motion.div
             key="manage-reservations"
             initial={{ opacity: 0, y: 20 }}
@@ -905,6 +904,11 @@ function MainFeature({ defaultTab = 'menu' }) {
               )}
             </div>
           </motion.div>
+
+
+
+
+
         )}
         {activeTab === 'reviews' && (
           <motion.div
