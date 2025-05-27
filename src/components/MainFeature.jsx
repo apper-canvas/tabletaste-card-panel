@@ -1570,6 +1570,5 @@ const MainFeature = React.forwardRef(function MainFeature({ defaultTab = 'menu' 
   )
 }
 
-})
 
 export default MainFeature
