@@ -119,6 +119,17 @@ function Home() {
                   <span className="font-medium">{item.label}</span>
                 </motion.button>
               ))}
+              
+              {/* Reservation Button */}
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => scrollToSection('reservations')}
+                className="ml-4 bg-gradient-to-r from-primary to-primary-light text-white px-6 py-2 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center space-x-2"
+              >
+                <ApperIcon name="Calendar" className="w-4 h-4" />
+                <span>Reserve Table</span>
+              </motion.button>
             </div>
 
             {/* Mobile menu button and dark mode toggle */}
@@ -166,6 +177,16 @@ function Home() {
                       <span className="font-medium">{item.label}</span>
                     </motion.button>
                   ))}
+                  
+                  {/* Mobile Reservation Button */}
+                  <motion.button
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => scrollToSection('reservations')}
+                    className="mt-2 bg-gradient-to-r from-primary to-primary-light text-white px-4 py-3 rounded-xl font-semibold shadow-lg flex items-center space-x-3"
+                  >
+                    <ApperIcon name="Calendar" className="w-5 h-5" />
+                    <span className="font-medium">Reserve Table</span>
+                  </motion.button>
                 </div>
               </motion.div>
             )}
