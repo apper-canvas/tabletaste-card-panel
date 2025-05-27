@@ -201,7 +201,10 @@ function Reservations() {
           </div>
         </div>
       </footer>
+      <CartSidebar />
     </div>
+  )
 }
+
 
 export default Reservations
