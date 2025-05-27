@@ -746,6 +746,8 @@ function MainFeature({ defaultTab = 'menu' }) {
                   <span>Cancel Modification</span>
                 </motion.button>
               )}
+          </motion.div>
+
             </div>
           </motion.div>
         )}
