@@ -1,4 +1,7 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
+
+import React from 'react'
+
 import { motion, AnimatePresence } from 'framer-motion'
 import { toast } from 'react-toastify'
 import ApperIcon from './ApperIcon'
@@ -153,7 +156,8 @@ const StarRating = ({ rating, onRatingChange, hoverRating, onHoverChange, readon
   )
 }
 
-function MainFeature({ defaultTab = 'menu' }) {
+const MainFeature = React.forwardRef(function MainFeature({ defaultTab = 'menu' }, ref) {
+
   const [activeTab, setActiveTab] = useState(defaultTab)
 
   const [selectedCategory, setSelectedCategory] = useState('appetizers')
@@ -1567,5 +1571,7 @@ function MainFeature({ defaultTab = 'menu' }) {
     </div>
   )
 }
+
+})
 
 export default MainFeature
