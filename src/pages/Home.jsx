@@ -232,10 +232,20 @@ function Home() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => scrollToSection('reservations')}
+                className="group bg-gradient-to-r from-accent to-red-500 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center space-x-3"
+              >
+                <span>Make Reservation</span>
+                <ApperIcon name="Calendar" className="w-5 h-5 group-hover:animate-pulse" />
+              </motion.button>
+              
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => scrollToSection('reservations')}
                 className="group glass text-white px-8 py-4 rounded-2xl font-semibold text-lg border border-white/30 hover:bg-white/30 transition-all duration-300 flex items-center space-x-3"
               >
                 <span>Book Table</span>
-                <ApperIcon name="Calendar" className="w-5 h-5 group-hover:animate-pulse" />
+                <ApperIcon name="UtensilsCrossed" className="w-5 h-5 group-hover:animate-bounce" />
               </motion.button>
             </motion.div>
           </motion.div>
