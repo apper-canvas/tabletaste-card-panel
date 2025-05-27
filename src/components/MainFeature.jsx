@@ -577,6 +577,7 @@ function MainFeature() {
             </div>
 
             {/* Menu Items */}
+            {/* Menu Items */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
               {menuCategories
                 .find(cat => cat.id === selectedCategory)
@@ -687,14 +688,12 @@ function MainFeature() {
                         </div>
                       </div>
                     </div>
-                )}
+                  </motion.div>
+                ))}
             </div>
           </motion.div>
         )}
 
-            </div>
-          </motion.div>
-        )}
 
         {/* Reservations Tab */}
         {activeTab === 'reservations' && (
