@@ -1168,6 +1168,8 @@ function MainFeature() {
                     <span>{selectedItem.available ? 'Add to Order' : 'Currently Unavailable'}</span>
                   </motion.button>
 
+                </div>
+
             </motion.div>
           </motion.div>
         )}
