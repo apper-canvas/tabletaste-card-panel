@@ -888,7 +888,25 @@ function MainFeature() {
                   ))}
               </div>
             )}
+          </motion.div>
+        )}
 
+        {/* Reservations Tab */}
+        {activeTab === 'reservations' && (
+          <motion.div
+            key="reservations"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="max-w-4xl mx-auto"
+          >
+            <div className="neu-card dark:neu-card-dark p-6 md:p-8 rounded-2xl">
+              <h3 className="text-2xl md:text-3xl font-bold text-surface-900 dark:text-white mb-6 text-center">
+                Reserve Your Table
+              </h3>
+              
+              <form onSubmit={handleReservationSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
@@ -955,7 +973,6 @@ function MainFeature() {
                     Select Date *
                   </label>
                   <div className="grid grid-cols-4 sm:grid-cols-7 gap-2">
-                  <div className="grid grid-cols-4 sm:grid-cols-7 gap-2">
                     {[...Array(14)].map((_, index) => {
                       const date = addDays(new Date(), index)
                       const dateStr = safeExecute(() => format(date, 'yyyy-MM-dd'), '')
@@ -983,8 +1000,6 @@ function MainFeature() {
                         </motion.button>
                       )
                     }).filter(Boolean)}
-                  </div>
-
                   </div>
                 </div>
 
@@ -1043,8 +1058,7 @@ function MainFeature() {
                 </motion.button>
               </form>
             </div>
-          </motion.div>
-        )}
+
 
         {/* Reviews Tab */}
         {activeTab === 'reviews' && (
