@@ -1,10 +1,8 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-
 import { motion, AnimatePresence } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import ApperIcon from '../components/ApperIcon'
-import MainFeature from '../components/MainFeature'
 
 const restaurantInfo = {
   name: "TableTaste",
@@ -41,34 +39,11 @@ const navItems = [
   { id: 'contact', label: 'Contact', icon: 'MapPin' }
 ]
 
-function Home() {
-  const [activeSection, setActiveSection] = useState('hero')
-  const navigate = useNavigate()
-
+function Contact() {
+  const [activeSection, setActiveSection] = useState('contact')
   const [isDarkMode, setIsDarkMode] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const sections = navItems.map(item => item.id)
-      const scrollPosition = window.scrollY + 100
-
-      for (const section of sections) {
-        const element = document.getElementById(section)
-        if (element) {
-          const offsetTop = element.offsetTop
-          const height = element.offsetHeight
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + height) {
-            setActiveSection(section)
-            break
-          }
-        }
-      }
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  const navigate = useNavigate()
 
   const handleNavigation = (sectionId) => {
     if (sectionId === 'hero') {
@@ -78,7 +53,6 @@ function Home() {
     }
     setIsMenuOpen(false)
   }
-
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode)
@@ -97,7 +71,8 @@ function Home() {
           <div className="flex items-center justify-between h-16 md:h-20">
             <motion.div 
               whileHover={{ scale: 1.05 }}
-              className="flex items-center space-x-2"
+              className="flex items-center space-x-2 cursor-pointer"
+              onClick={() => navigate('/')}
             >
               <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-primary to-primary-dark rounded-xl flex items-center justify-center">
                 <ApperIcon name="UtensilsCrossed" className="w-5 h-5 md:w-6 md:h-6 text-white" />
@@ -115,7 +90,6 @@ function Home() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => handleNavigation(item.id)}
-
                   className={`px-4 py-2 rounded-xl transition-all duration-300 flex items-center space-x-2 ${
                     activeSection === item.id
                       ? 'bg-primary text-white shadow-lg'
@@ -127,8 +101,6 @@ function Home() {
                 </motion.button>
               ))}
             </div>
-
-              
 
             {/* Mobile menu button and dark mode toggle */}
             <div className="flex items-center space-x-2">
@@ -165,7 +137,6 @@ function Home() {
                       key={item.id}
                       whileTap={{ scale: 0.95 }}
                       onClick={() => handleNavigation(item.id)}
-
                       className={`px-4 py-3 rounded-xl transition-all duration-300 flex items-center space-x-3 text-left ${
                         activeSection === item.id
                           ? 'bg-primary text-white shadow-lg'
@@ -176,7 +147,6 @@ function Home() {
                       <span className="font-medium">{item.label}</span>
                     </motion.button>
                   ))}
-                  
                 </div>
               </motion.div>
             )}
@@ -184,174 +154,32 @@ function Home() {
         </div>
       </motion.nav>
 
-      {/* Hero Section */}
-      <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <img 
-            src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&auto=format&fit=crop&w=2074&q=80"
-            alt="Restaurant Interior"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-surface-900/70 via-surface-800/50 to-surface-900/70"></div>
-        </div>
-
-        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      {/* Contact Header Section */}
+      <section className="pt-24 pb-16 bg-gradient-to-br from-blue-500/10 to-blue-600/10 dark:from-blue-500/20 dark:to-blue-600/20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="max-w-4xl mx-auto"
+            className="text-center max-w-4xl mx-auto"
           >
-            <motion.h1 
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
-            >
-              Welcome to{' '}
-              <span className="bg-gradient-to-r from-primary to-primary-light bg-clip-text text-transparent">
-                TableTaste
-              </span>
-            </motion.h1>
-            
-            <motion.p 
-              className="text-xl sm:text-2xl md:text-3xl text-surface-200 mb-8 leading-relaxed"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
-            >
-              {restaurantInfo.description}
-            </motion.p>
-
-            <motion.div 
-              className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
-            >
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => navigate('/menu')}
-
-                className="group bg-gradient-to-r from-primary to-primary-light text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center space-x-3"
-              >
-                <span>Explore Menu</span>
-                <ApperIcon name="ChefHat" className="w-5 h-5 group-hover:animate-bounce" />
-              </motion.button>
-              
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => navigate('/reservations')}
-
-                className="group bg-gradient-to-r from-accent to-red-500 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center space-x-3"
-              >
-                <span>Make Reservation</span>
-                <ApperIcon name="Calendar" className="w-5 h-5 group-hover:animate-pulse" />
-              </motion.button>
-              
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => navigate('/reservations')}
-
-                className="group glass text-white px-8 py-4 rounded-2xl font-semibold text-lg border border-white/30 hover:bg-white/30 transition-all duration-300 flex items-center space-x-3"
-              >
-                <span>Book Table</span>
-                <ApperIcon name="UtensilsCrossed" className="w-5 h-5 group-hover:animate-bounce" />
-              </motion.button>
-            </motion.div>
-          </motion.div>
-        </div>
-
-        {/* Scroll indicator */}
-        <motion.div 
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          <ApperIcon name="ChevronDown" className="w-8 h-8 text-white/70" />
-        </motion.div>
-      </section>
-
-      {/* Main Features Section - Menu Focus */}
-      <section id="menu" className="py-16 md:py-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div id="menuFeature">
-            <MainFeature defaultTab="menu" />
-          </div>
-        </div>
-      </section>
-
-      {/* Reservations Section */}
-      <section id="reservations" className="py-16 md:py-24 bg-surface-50 dark:bg-surface-900">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-surface-900 dark:text-white mb-6">
-              Make a Reservation
-            </h2>
-            <p className="text-xl text-surface-600 dark:text-surface-300 max-w-3xl mx-auto">
-              Reserve your table for an unforgettable dining experience
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-surface-900 dark:text-white mb-6">
+              Visit Us <span className="bg-gradient-to-r from-blue-500 to-blue-600 bg-clip-text text-transparent">Today</span>
+            </h1>
+            <p className="text-xl md:text-2xl text-surface-600 dark:text-surface-300 leading-relaxed">
+              Experience the perfect blend of ambiance, service, and cuisine at TableTaste. Find us, contact us, or visit our location.
             </p>
           </motion.div>
-          <div id="reservationFeature">
-            <MainFeature defaultTab="reservations" />
-          </div>
         </div>
       </section>
 
-      {/* Reviews Section */}
-      <section id="reviews" className="py-16 md:py-24">
+      {/* Contact Content */}
+      <section className="py-16 md:py-24 bg-surface-100 dark:bg-surface-800">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-surface-900 dark:text-white mb-6">
-              Customer Reviews
-            </h2>
-            <p className="text-xl text-surface-600 dark:text-surface-300 max-w-3xl mx-auto">
-              See what our guests are saying about their TableTaste experience
-            </p>
-          </motion.div>
-          <div id="reviewsFeature">
-            <MainFeature defaultTab="reviews" />
-          </div>
-        </div>
-      </section>
-
-
-      {/* Contact Section */}
-      <section id="contact" className="py-16 md:py-24 bg-surface-100 dark:bg-surface-800">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-surface-900 dark:text-white mb-6">
-              Visit Us Today
-            </h2>
-            <p className="text-xl text-surface-600 dark:text-surface-300 max-w-3xl mx-auto">
-              Experience the perfect blend of ambiance, service, and cuisine at TableTaste
-            </p>
-          </motion.div>
-
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
             {/* Contact Information */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              animate={{ opacity: 1, x: 0 }}
               className="space-y-8"
             >
               <div className="neu-card dark:neu-card-dark p-8 rounded-2xl">
@@ -423,8 +251,7 @@ function Home() {
             {/* Map placeholder */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              animate={{ opacity: 1, x: 0 }}
               className="neu-card dark:neu-card-dark p-8 rounded-2xl h-96 lg:h-full min-h-[400px] flex items-center justify-center bg-gradient-to-br from-surface-200 to-surface-300 dark:from-surface-700 dark:to-surface-800"
             >
               <div className="text-center">
@@ -467,4 +294,4 @@ function Home() {
   )
 }
 
-export default Home
+export default Contact
