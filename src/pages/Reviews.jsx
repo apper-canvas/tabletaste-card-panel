@@ -210,11 +210,12 @@ function Reviews() {
             </div>
           </div>
         </div>
-      </footer>
-    </div>
       
       {/* Cart Sidebar */}
       <CartSidebar />
+
+      </footer>
+    </div>
 
 }
 
