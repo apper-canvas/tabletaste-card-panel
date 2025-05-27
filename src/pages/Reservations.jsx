@@ -202,11 +202,6 @@ function Reservations() {
         </div>
       </footer>
     </div>
-      
-      {/* Cart Sidebar */}
-      <CartSidebar />
-
-  )
 }
 
 export default Reservations
