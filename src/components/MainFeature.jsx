@@ -660,10 +660,11 @@ function MainFeature() {
                           </div>
                         )}
                         <div className="absolute top-4 right-4">
-                          <span className="bg-primary text-white px-3 py-1 rounded-full text-lg font-bold">
+                          <span className="bg-primary text-white px-4 py-2 rounded-full text-xl font-bold shadow-lg">
                             ${item.price}
                           </span>
                         </div>
+
                         <div className="absolute top-4 left-4">
                           <span className="bg-surface-900/80 text-white px-2 py-1 rounded-full text-xs font-medium backdrop-blur-sm">
                             {item.category}
@@ -780,10 +781,11 @@ function MainFeature() {
                           </div>
                         )}
                         <div className="absolute top-4 right-4">
-                          <span className="bg-primary text-white px-3 py-1 rounded-full text-lg font-bold">
+                          <span className="bg-primary text-white px-4 py-2 rounded-full text-xl font-bold shadow-lg">
                             ${item.price}
                           </span>
                         </div>
+
                       </div>
                       
                       <div className="p-6">
@@ -1212,10 +1214,11 @@ function MainFeature() {
                   <ApperIcon name="X" className="w-5 h-5" />
                 </motion.button>
                 <div className="absolute bottom-4 right-4">
-                  <span className="bg-primary text-white px-4 py-2 rounded-full text-xl font-bold">
+                  <span className="bg-primary text-white px-6 py-3 rounded-full text-2xl font-bold shadow-lg">
                     ${selectedItem.price}
                   </span>
                 </div>
+
               </div>
               
               <div className="p-8">
