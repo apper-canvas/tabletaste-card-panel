@@ -7,7 +7,6 @@ import Home from './pages/Home'
 import NotFound from './pages/NotFound'
 
 function App() {
-function App() {
   const [hasError, setHasError] = useState(false)
   const [errorInfo, setErrorInfo] = useState(null)
 
