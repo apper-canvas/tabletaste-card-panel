@@ -216,7 +216,6 @@ function Reviews() {
       {/* Cart Sidebar */}
       <CartSidebar />
 
-  )
 }
 
 export default Reviews
