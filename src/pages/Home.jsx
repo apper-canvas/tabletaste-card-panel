@@ -229,27 +229,6 @@ function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.8 }}
             >
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => navigate('/menu')}
-
-                className="group bg-gradient-to-r from-primary to-primary-light text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center space-x-3"
-              >
-                <span>Explore Menu</span>
-                <ApperIcon name="ChefHat" className="w-5 h-5 group-hover:animate-bounce" />
-              </motion.button>
-              
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => navigate('/reservations')}
-
-                className="group bg-gradient-to-r from-accent to-red-500 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center space-x-3"
-              >
-                <span>Make Reservation</span>
-                <ApperIcon name="Calendar" className="w-5 h-5 group-hover:animate-pulse" />
-              </motion.button>
               
               <motion.button
                 whileHover={{ scale: 1.05 }}
@@ -275,36 +254,6 @@ function Home() {
         </motion.div>
       </section>
 
-      {/* Main Features Section - Menu Focus */}
-      <section id="menu" className="py-16 md:py-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div id="menuFeature">
-            <MainFeature defaultTab="menu" />
-          </div>
-        </div>
-      </section>
-
-      {/* Reservations Section */}
-      <section id="reservations" className="py-16 md:py-24 bg-surface-50 dark:bg-surface-900">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-surface-900 dark:text-white mb-6">
-              Make a Reservation
-            </h2>
-            <p className="text-xl text-surface-600 dark:text-surface-300 max-w-3xl mx-auto">
-              Reserve your table for an unforgettable dining experience
-            </p>
-          </motion.div>
-          <div id="reservationFeature">
-            <MainFeature defaultTab="reservations" />
-          </div>
-        </div>
-      </section>
 
       {/* Reviews Section */}
       <section id="reviews" className="py-16 md:py-24">
