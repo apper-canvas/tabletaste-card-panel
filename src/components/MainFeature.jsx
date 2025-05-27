@@ -527,10 +527,6 @@ function MainFeature({ defaultTab = 'menu' }) {
     }
   }
 
-  const shareItem = (item) => {
-    setShareItem(item)
-    setShowShareModal(true)
-  }
 
   const handleShare = (platform) => {
     if (!shareItem) return
